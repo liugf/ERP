@@ -192,6 +192,7 @@
           	<% truck = Dict::Truck.find_by_code(@declaration.truck) %>
           	<%= raw tcs("CorporationName", (truck.corporation_name rescue '')) %>
           	<%= raw tcs("OrganizationCode", (truck.corporation_code rescue '')) %>
+			<%= raw tcs("ArrivalEstimateDate", ( (now+(60*60*24)).strftime('%Y%m%d') rescue '' )) %>
           </TransitHead>
           <TransitList>
           	<%= raw tcs("BillOfLadingNo", (@declaration.bill_no rescue '')) %>
