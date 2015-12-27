@@ -62,7 +62,11 @@
             <CopName>东莞市新泽报关咨询服务有限公司</CopName>
             <%= raw tcs("CustomMaster", (enterprise.enterprise_custom_option.custom_code rescue '')); %>
             <%= raw tcs("IEPort", (@declaration.custom rescue '')); %>
-            <DeclTrnRel>1</DeclTrnRel>
+            <% if @declaration.transit_type == 001%>
+                <DeclTrnRel>0</DeclTrnRel>
+            <% else %>
+                <DeclTrnRel>1</DeclTrnRel>
+            <% end %>
             <%= raw tcs("DistinatePort", (@declaration.port rescue '')) %>
             <EdiId>5</EdiId>
             <EntryType>W</EntryType>
