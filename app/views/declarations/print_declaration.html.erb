@@ -156,7 +156,11 @@
     <div id="top">
       <div id="top-left">
         <span class="not_print">预录入编号：</span><span class="content"><%= @declaration.pre_entry_no %></span>
-        <span class="content">申报现场:<%= dict_name_and_code Dict::Custom, Dict::LoadPort.find_by_code(@declaration.load_port).custom_code rescue '' %></span>
+        <% if !@declaration.custom_code.blank? %>
+            <span class="content">申报现场:<%= dict_name_and_code Dict::Custom, @declaration.custom_code rescue '' %></span>
+        <% else %>
+            <span class="content">申报现场:<%= dict_name_and_code Dict::Custom, Dict::LoadPort.find_by_code(@declaration.load_port).custom_code rescue '' %></span>
+        <% end %>
       </div>
       <div id="top-right"><span class="not_print">海关编号：</span><span class="content"><%= @declaration.entry_no %></span></div>
       <div class="clear"></div>

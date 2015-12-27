@@ -24,6 +24,7 @@ class Declaration < ActiveRecord::Base
   validates :declare_enterprise_code, :presence => true
   validates :declare_date, :presence => true
   validates :custom, :presence => true
+  validates :custom_code, :presence => true
   validates :load_port, :presence => true
   validates :declare_date, :presence => true
   validates :package_amount, :presence => true, :numericality => true

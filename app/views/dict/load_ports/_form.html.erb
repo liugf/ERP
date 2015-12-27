@@ -11,7 +11,7 @@
 		<%= f.text_field :name, :class => "text-input small-input" %>
 		<br />
 	</p>
-	<p>
+	<p style="display:none">
 		<label>海关编码</label>
 		<%= render "shared/autocomplete_field", :form => f, :attribute => :custom_code, :url => dict_customs_path, :klass => "text-input small-input" %> 
 		<br />

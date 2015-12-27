@@ -8,10 +8,11 @@
       <label><%= @declaration_type == "export" ? "出口" : "进口" %>口岸</label>
       <%= render "shared/autocomplete_field", :form => f, :attribute => :custom, :url => dict_customs_path, :klass => "text-input small-input" %>
     </div>
-    <div class="filed">
-      <label>装卸口岸</label>
-      <%= render "shared/autocomplete_field", :form => f, :attribute => :load_port, :url => dict_load_ports_path, :min_length => 2, :klass => "text-input small-input" %>
-    </div>
+	<div class="filed">
+		<label>申报现场</label>
+		<%= render "shared/autocomplete_field", :form => f, :attribute => :custom_code, :url => dict_customs_path, :klass => "text-input small-input" %> 
+		<br />
+	</div>
     <div class="filed">
       <label>申报日期</label>
       <%= f.date_select :declare_date, :class => "text-input small-input" %>
@@ -164,6 +165,10 @@
     <div class="filed">
       <label>备注</label>
       <%= f.text_field :memo, :class => "text-input small-input" %>
+    </div>
+    <div class="filed">
+      <label>装卸口岸</label>
+      <%= render "shared/autocomplete_field", :form => f, :attribute => :load_port, :url => dict_load_ports_path, :min_length => 2, :klass => "text-input small-input" %>
     </div>
     <div class="filed">
       <label>申报单位</label>
