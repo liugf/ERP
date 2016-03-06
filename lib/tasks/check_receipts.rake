@@ -26,9 +26,9 @@ namespace :receipt do
             dispatch_record_generate.task_id = task_id
             dispatch_record_generate.save
             dispatch_record_new = DispatchRecord.new({:declaration_id => dispatch_record_generate.declaration_id,
-                                                      :message_id => message_id,
-                                                      :task_id => task_id,
-                                                      :note => note})
+              :message_id => message_id,
+              :task_id => task_id,
+              :note => note})
             dispatch_record_new.save
           end
         elsif message_type == 'TcsFlow201'
@@ -40,10 +40,10 @@ namespace :receipt do
           dispatch_record_generate = DispatchRecord.where("task_id = ? AND channel = ?", task_id, '000').last
           if dispatch_record_generate
             dispatch_record_new = DispatchRecord.new({:declaration_id => dispatch_record_generate.declaration_id,
-                                                      :message_id => message_id,
-                                                      :channel => channel,
-                                                      :task_id => task_id,
-                                                      :note => note})
+              :message_id => message_id,
+              :channel => channel,
+              :task_id => task_id,
+              :note => note})
             dispatch_record_new.save
             if channel == '016' or channel == '025'
               eport_no = REXML::XPath.first(doc, "//EportNo" ).text  rescue ''
@@ -57,13 +57,13 @@ namespace :receipt do
                 declaration.save
                 if !Finance.find_by_declaration_id(declaration.id)
                   Finance.create!(:declaration_id => declaration.id,
-                                  :is_made => false,
-                                  :review => 1,
-                  )
+                    :is_made => false,
+                    :review => 1,
+                    )
                 end
               end
               Message.new({:subject => '报关单申报成功', :body => '报关单<a href="' + Settings['ERP_path'] + '/declarations/' + declaration.id.to_s + '" >' + declaration.pre_entry_no + '</a>申报成功！'}
-              ).send_message(:system, declaration.created_by)
+                ).send_message(:system, declaration.created_by)
             end
 
           end
@@ -114,13 +114,13 @@ namespace :receipt do
         if dispatch_record_generate
           #生成新的record
           record_hash = {:ret_type => ret_type,
-                         :sort_flag => sort_flag,
-                         :ret_no => ret_no,
-                         :chk_status => chk_status,
-                         :notice_date => notice_date,
-                         :note => note,
-                         :ret_content => ret_content}
-          if ret_type == '1'
+           :sort_flag => sort_flag,
+           :ret_no => ret_no,
+           :chk_status => chk_status,
+           :notice_date => notice_date,
+           :note => note,
+           :ret_content => ret_content}
+           if ret_type == '1'
             record_hash[:application_id] =  dispatch_record_generate.application_id
           else
             record_hash[:bill_id] =  dispatch_record_generate.bill_id

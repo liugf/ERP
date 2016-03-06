@@ -15,15 +15,18 @@
   </div>
 </div>
 <script>
-    $("#declare_button").click(function () {
+   $(function(){
+     $("#declare_button").click(function () {
         if (confirm('确定要申报吗?')) {
             var url = this.getAttribute("href");
             $.get(url, function (result) {
-                show_tips(result.type, result.content);
+                //show_tips(result.type, result.content);
+                alert(result.content);
             });
         }
         return false;
     });
+   })
 </script>
 <div class="content-box-content">
   <div class="tab-content default-tab">
