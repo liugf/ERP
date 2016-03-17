@@ -22,6 +22,7 @@
             $.get(url, function (result) {
                 //show_tips(result.type, result.content);
                 alert(result.content);
+                location.reload();
             });
         }
         return false;
