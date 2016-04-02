@@ -164,6 +164,7 @@ ERP::Application.routes.draw do
               :units,
               :usages,
               :transit_types,
+              :transit_declaration_types,
               :wrap_types,
               :fees do
       get 'search', :on => :collection

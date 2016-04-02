@@ -2,8 +2,8 @@
 	<div class="content-box-header">
 		<h3>查看<%= @model_name %></h3>
 		<div class="operations">
-			<%= link_to '编辑', edit_dict_load_port_path(@item) %> |
-			<%= link_to '返回列表', dict_load_ports_path %>
+			<%= link_to '编辑', edit_dict_transit_declaration_type_path(@item) %> |
+			<%= link_to '返回列表', dict_transit_declaration_types_path %>
 		</div>
 	</div>
 	<div class="content-box-content">
@@ -13,9 +13,6 @@
 			</p>
 			<p>
 				<b>名称</b>：<%= @item.name %>
-			</p>
-			<p>
-				<b>企业编码</b>：<span class="autoload" data-url=<%= dict_customs_path %> ><%= @item.custom_code %></span>
 			</p>
 		</div>
 	</div>

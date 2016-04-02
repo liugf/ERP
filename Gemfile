@@ -1,4 +1,4 @@
-source 'http://ruby.taobao.org'
+source 'https://ruby.taobao.org'
 gem 'i18n'
 gem 'rails', '3.2.3'
 gem 'jquery-rails', '2.0.2'

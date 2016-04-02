@@ -44,8 +44,8 @@ class DeclarationCargosController < ApplicationController
                                               :quantity2 => 0,
                                               :no => @declaration.declaration_cargos.size + 1)
 
-    if @declaration_cargo.no > 20
-      redirect_to declaration_cargos_url(:declaration_id => @declaration.id),:flash => {:attention => '不能超过20项商品'}
+    if @declaration_cargo.no > 50
+      redirect_to declaration_cargos_url(:declaration_id => @declaration.id),:flash => {:attention => '不能超过50项商品'}
     end
 
     if @declaration.contract

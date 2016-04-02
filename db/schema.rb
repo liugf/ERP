@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140729125544) do
+ActiveRecord::Schema.define(:version => 20160402013541) do
 
   create_table "app_bill_dispatch_records", :force => true do |t|
     t.string   "application_id"
@@ -278,8 +278,8 @@ ActiveRecord::Schema.define(:version => 20140729125544) do
   create_table "declaration_packings", :force => true do |t|
     t.integer  "declaration_id"
     t.string   "name"
-    t.integer  "package_amount"
-    t.decimal  "quantity",                 :precision => 10, :scale => 0
+    t.decimal  "package_amount",           :precision => 15, :scale => 4
+    t.decimal  "quantity",                 :precision => 15, :scale => 4
     t.string   "unit"
     t.decimal  "gross_weight",             :precision => 15, :scale => 4
     t.decimal  "net_weight",               :precision => 15, :scale => 4
@@ -304,6 +304,8 @@ ActiveRecord::Schema.define(:version => 20140729125544) do
     t.string   "local_transport_tool_voyage_no"
     t.datetime "created_at",                     :null => false
     t.datetime "updated_at",                     :null => false
+    t.string   "transit_type"
+    t.string   "transit_declaration_enterprise"
   end
 
   create_table "declarations", :force => true do |t|
@@ -315,7 +317,7 @@ ActiveRecord::Schema.define(:version => 20140729125544) do
     t.string   "declarant"
     t.string   "declare_enterprise_code"
     t.string   "operate_enterprise_code"
-    t.string   "custom"
+    t.string   "custom",                                                                          :null => false
     t.string   "contract_id"
     t.date     "declare_date"
     t.string   "transport_mode"
@@ -333,14 +335,14 @@ ActiveRecord::Schema.define(:version => 20140729125544) do
     t.string   "contract_no"
     t.integer  "package_amount"
     t.string   "wrap_type"
-    t.decimal  "gross_weight",            :precision => 15, :scale => 4
-    t.decimal  "net_weight",              :precision => 15, :scale => 4
+    t.decimal  "gross_weight",                  :precision => 15, :scale => 4
+    t.decimal  "net_weight",                    :precision => 15, :scale => 4
     t.string   "load_port"
     t.string   "memo"
     t.string   "attachments_mark"
     t.date     "import_export_date"
-    t.datetime "created_at",                                                                :null => false
-    t.datetime "updated_at",                                                                :null => false
+    t.datetime "created_at",                                                                      :null => false
+    t.datetime "updated_at",                                                                      :null => false
     t.string   "voyage_no"
     t.string   "transit_type"
     t.boolean  "is_finish"
@@ -349,11 +351,19 @@ ActiveRecord::Schema.define(:version => 20140729125544) do
     t.string   "warehouse_no"
     t.string   "foreign_enterprise_code"
     t.string   "usage"
-    t.integer  "review_type",                                            :default => 0
-    t.boolean  "is_deleted",                                             :default => false
-    t.boolean  "is_paperless",                                           :default => false
-    t.boolean  "is_paperless_deleted",                                   :default => false
-    t.string   "declaration_mode",                                       :default => "003"
+    t.integer  "review_type",                                                  :default => 0
+    t.boolean  "is_deleted",                                                   :default => false
+    t.boolean  "is_paperless",                                                 :default => false
+    t.boolean  "is_paperless_deleted",                                         :default => false
+    t.string   "declaration_mode",                                             :default => "003"
+    t.string   "custom_code"
+    t.boolean  "is_special_relationship"
+    t.boolean  "is_price_influence"
+    t.boolean  "is_pay_privilege"
+    t.string   "check_surety"
+    t.string   "bill_type"
+    t.string   "trade_area"
+    t.string   "source_or_destination_country"
   end
 
   add_index "declarations", ["trade_mode"], :name => "trade_mode_index"
@@ -548,6 +558,11 @@ ActiveRecord::Schema.define(:version => 20140729125544) do
     t.datetime "updated_at", :null => false
   end
 
+  create_table "dict_transit_declaration_types", :force => true do |t|
+    t.string "code"
+    t.string "name"
+  end
+
   create_table "dict_transit_types", :force => true do |t|
     t.string   "code"
     t.string   "name"
@@ -636,6 +651,7 @@ ActiveRecord::Schema.define(:version => 20140729125544) do
     t.boolean  "is_income"
     t.boolean  "is_pay"
     t.text     "note"
+    t.string   "declaration_type"
     t.string   "checkout_enterprise_code"
   end
 
@@ -731,10 +747,10 @@ ActiveRecord::Schema.define(:version => 20140729125544) do
   end
 
   create_table "sessions", :force => true do |t|
-    t.string   "session_id", :default => "", :null => false
+    t.string   "session_id", :null => false
     t.text     "data"
-    t.datetime "created_at",                 :null => false
-    t.datetime "updated_at",                 :null => false
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
   end
 
   add_index "sessions", ["session_id"], :name => "index_sessions_on_session_id"

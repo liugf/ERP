@@ -9,7 +9,7 @@
       <%= render "shared/autocomplete_field", :form => f, :attribute => :custom, :url => dict_customs_path, :klass => "text-input small-input" %>
     </div>
 	<div class="filed">
-		<label>申报现场</label>
+		<label>申报地海关</label>
 		<%= render "shared/autocomplete_field", :form => f, :attribute => :custom_code, :url => dict_customs_path, :klass => "text-input small-input" %> 
 		<br />
 	</div>
@@ -54,7 +54,7 @@
         });
     </script>
     <div class="filed">
-      <label>经营单位</label>
+      <label>收发货人</label>
       <%= render "shared/autocomplete_field", :form => f, :attribute => :operate_enterprise_code, :url => enterprises_path, :klass => "text-input small-input first-field" %>
     </div>
     <div class="filed">
@@ -103,16 +103,20 @@
         });
     </script>
     <% if @declaration_type == "import" %>
+        <!--
         <div class="filed">
           <label>用途</label>
           <%= render "shared/autocomplete_field", :form => f, :attribute => :usage, :url => dict_usages_path, :min_length => 1, :klass => "text-input small-input" %>
         </div>
+        -->
     <% end %>
     <% if @declaration_type == "export" %>
+        <!-- 
         <div class="filed">
           <label>结汇方式</label>
           <%= render "shared/autocomplete_field", :form => f, :attribute => :pay_way, :url => dict_pay_ways_path, :min_length => 1, :klass => "text-input small-input" %>
         </div>
+        -->
     <% end %>
     <div class="filed">
       <label>运输方式</label>
@@ -175,7 +179,7 @@
       <%= render "shared/autocomplete_field", :form => f, :attribute => :declare_enterprise_code, :url => enterprises_path, :klass => "text-input small-input" %>
     </div>
     <div class="filed">
-      <label>报关员</label>
+      <label>报关人员</label>
       <%= f.text_field :declarant, :class => "text-input small-input" %>
     </div>
     <div class="filed">
@@ -183,15 +187,17 @@
       <%= f.text_field :attachments_mark, :class => "text-input small-input" %>
     </div>
     <div class="filed">
-      <label>监管仓号</label>
+      <label>保税/监管场所</label>
       <%= f.text_field :warehouse_no, :class => "text-input small-input" %>
     </div>
-    <%# if @declaration_type == "export" %>
+    <% if @declaration_type == "export" %>
+        <!-- 
         <div class="filed">
           <label>批准文号</label>
           <%= f.text_field :license, :class => "text-input small-input" %>
         </div>
-    <%# end %>
+        -->
+    <% end %>
     <div class="filed">
       <label>报关类型</label>
       <%= render "shared/combobox_field", :form => f, :attribute => :transit_type, :model => Dict::TransitType, :width=>"170px", :klass => "text-input" %>
@@ -234,10 +240,42 @@
       <br/>
       <small>报关成功后自动录入</small>
     </div>
+
+    <div class="filed" >
+        <label>贸易国(地区):</label>
+        <%= render "shared/autocomplete_field", :form => f, :attribute => :trade_area, :url => dict_countries_path, :klass => "text-input small-input" %> 
+    </div>
     </fieldset>
+
+
+    <fieldset id="promise_items">
+      <legend>承诺事项：</legend>
+     <div class="filed">
+      <label>特殊关系确认</label>
+      <%= f.check_box :is_special_relationship, :class => "text-input small-input" %>
+    </div>
+     <div class="filed">
+      <label>价格影响确认</label>
+      <%= f.check_box :is_price_influence, :class => "text-input small-input" %>
+    </div>
+     <div class="filed">
+      <label>支付特许权使用费确认</label>
+      <%= f.check_box :is_pay_privilege, :class => "text-input small-input" %>
+    </div>
+    </fieldset>
+
+
     <fieldset id="transit_filedset">
       <legend>转关信息：</legend>
       <%= f.fields_for :declaration_transit_information do |f| %>
+          <div class="filed">
+            <label>转关单类型</label>
+            <%= render "shared/combobox_field", :form => f, :attribute => :transit_declaration_type, :model => Dict::TransitDeclarationType, :width=>"170px", :klass => "text-input" %>
+          </div>
+          <div class="filed">
+            <label>转关申报单位统一代码</label>
+            <%= render "shared/autocomplete_field", :form => f, :attribute => :transit_declaration_enterprise, :url => enterprises_path, :klass => "text-input small-input" %>
+          </div>
           <div class="filed">
             <label>承运单位组织机构代码</label>
             <%= f.text_field :corporation_code, :class => "text-input small-input" %>

@@ -157,6 +157,22 @@
               <tcs:EntrydeclarantNo xsi:nil="true" />
               <%= raw tcs("ICCardNo", (custom_option.ic_card_no rescue '')) %>
               <%= raw tcs("Name", (@declaration.declarant rescue '')) %>
+              <!-- 3.29 update -->
+              <%= raw tcs("CheckSurety", (@declaration.check_surety rescue '') ) %>
+              <%= raw tcs("BillType", (@declaration.bill_type rescue '') ) %>
+              <%= raw tcs("TradeCoScc", (@declaration.operate_enterprise_code, rescue '') ) %>
+              <%= raw tcs("AgentCodeScc", (@declaration.declare_enterprise.name, rescue '' ) ) %>
+              <%= raw tcs("OwnerCodeScc", (@declaration.enterprise, rescue '' ) ) %>
+              <tcs:CopCodeScc>914419007444833082</tcs:CopCodeScc>
+              <% 
+                a = @declaration.is_special_relationship ? 4 : 0
+                b = @declaration.is_price_influence ? 2 : 0
+                c = @declaration.is_pay_privilege ? 1 : 0
+                promise_itmes = (a | b | c).to_s(2)
+              %>
+              <%= raw tcs("PromiseItmes", (promise_itmes rescue '') ) %>
+              <%= raw tcs("TradeAreaCode", (@declaration.trade_area_code rescue '' ) ) %>
+                  
             </tcs:BaseInformation>
             <tcs:GoodsInformationList>
             <% @declaration.declaration_cargos.each do |cargo| %>
@@ -197,6 +213,7 @@
                 <%= raw tcs("GoodsVersion", (cargo.goods_version rescue '')) %>
                 <tcs:ClassificationMark xsi:nil="true" />
                 <tcs:Note xsi:nil="true" />
+                <%= raw tcs("DestinationCountry", (@declaration.destination_country rescue '')) %>
               </tcs:GoodsInformation>
             <% end %>
             </tcs:GoodsInformationList>

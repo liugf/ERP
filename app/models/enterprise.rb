@@ -13,7 +13,7 @@ class Enterprise < ActiveRecord::Base
   has_many :enterprise_fees, :dependent => :destroy
 
 
-  validates :code, :presence => true, :uniqueness => true, :length => { :is => 10 }
+  validates :code, :presence => true, :uniqueness => true, :length => { :is => 18 }
   validates :organization_code, :presence => true, :uniqueness => true, :length => { :is => 9 }
   validates :name, :presence => true
   

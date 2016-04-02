@@ -722,7 +722,7 @@ class DeclarationsController < ApplicationController
     sheet1.column(4).width = 10
 
     #set spreadsheet data
-    sheet1.row(0).replace %w[序号 报关单号 企业名称 企业海关编码 仓库类型]
+    sheet1.row(0).replace %w[序号 报关单号 企业名称 企业编码 仓库类型]
     @details3_declarations.each_with_index do |details3_declaration,i|
       sheet1.row(i+1).push i+1 ,details3_declaration.entry_no ,details3_declaration.enterprise_name ,details3_declaration.enterprise_code, details3_declaration.warehouse_no
     end

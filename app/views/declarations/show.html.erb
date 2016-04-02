@@ -45,7 +45,7 @@
       </p>
 
       <p>
-        <b>申报现场:</b>
+        <b>申报地海关:</b>
         <span class="autoload" data-url=<%= dict_customs_path %>><%= @declaration.custom_code %></span>
       </p>
 
@@ -59,10 +59,7 @@
         <%= @declaration.entry_no %>
       </p>
 
-      <p>
-        <b>经营单位:</b>
-        <span class="autoload" data-url=<%= enterprises_path %>><%= @declaration.operate_enterprise_code %></span>
-      </p>
+     
 
       <p>
         <b>外商公司:</b>
@@ -143,6 +140,7 @@
         <span class="autoload" data-url=<%= dict_districts_path %>><%= @declaration.destination %></span>
       </p>
       <% if @declaration_type == "export" %>
+          <!-- 3.29 update
           <p>
             <b>结汇方式:</b>
             <span class="autoload" data-url=<%= dict_pay_ways_path %>><%= @declaration.pay_way %></span>
@@ -152,6 +150,7 @@
             <b>批准文号:</b>
             <%= @declaration.certification %>
           </p>
+          -->
       <% end %>
       <p>
         <b>成交方式:</b>
@@ -189,14 +188,47 @@
       </p>
 
       <p>
+        <b>贸易国(地区):</b>
+        <span class="autoload" data-url=<%= dict_countries_path %> ><%= @declaration.trade_country %></span>
+      </p>
+
+      <p>
+        <b>申报单位:</b>
+        <span class="autoload" data-url=<%= dict_countries_path %> ><%= @declaration.declare_enterprise.name %></span>
+      </p>
+
+      <p>
+        <b>收发货人:</b>
+        <span class="autoload" data-url=<%= enterprises_path %>><%= @declaration.operate_enterprise_code %></span>
+     </p>
+
+
+      <p>
+        <b>特殊关系确认</b>
+        <%= true == @declaration.is_special_relationship ? "是" : "否" %>
+      </p>
+
+      <p>
+        <b>价格影响确认</b>
+        <%= true == @declaration.is_price_influence ? "是" : "否" %>
+      </p>
+
+      <p>
+        <b>支付特许权使用费确认</b>
+        <%= true == @declaration.is_pay_privilege ? "是" : "否" %>
+      </p>
+
+      <p>
         <b>备注:</b>
         <%= @declaration.memo %>
       </p>
       <% if @declaration_type == "import" %>
+          <!--
           <p>
             <b>用途:</b>
             <span class="autoload" data-url=<%= dict_usages_path %>><%= @declaration.usage %></span>
           </p>
+          -->
       <% end %>
       <% @declaration.attachments.each do |key, value| %>
           <p>
@@ -206,7 +238,7 @@
       <% end %>
 
       <p>
-        <b>报关员:</b>
+        <b>报关人员:</b>
         <%= @declaration.declarant %>
       </p>
 
@@ -216,9 +248,20 @@
       </p>
 
     </fieldset>
+
     <% if @declaration.transit_type == "003" %>
         <fieldset>
           <legend>转关信息：</legend>
+          <p>
+            <b>转关申报类型</b>
+            <%= @declaration.declaration_transit_information.transit_declaration_type %>
+          </p>
+
+          <p>
+            <b>转关申报单位统一代码</b>
+            <span class="autoload" data-url=<%= enterprises_path %>><%= @declaration.declaration_transit_information.transit_declaration_enterprise %></span>
+          </p>
+
           <p>
             <b>境内运输方式:</b>
             <span class="autoload" data-url=<%= dict_transport_modes_path %>><%= @declaration.declaration_transit_information.local_transport_mode rescue ''%></span>

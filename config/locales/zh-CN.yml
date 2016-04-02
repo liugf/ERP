@@ -49,6 +49,7 @@ zh-CN:
       dict/usage: 用途
       dict/wrap_type: 包装种类
       dict/transit_type: 报关类型
+      dict/transit_declaration_type: 转关申报类型
       dict/fee: 费用种类
       
         
