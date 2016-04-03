@@ -10,6 +10,7 @@ gem 'rufus-scheduler', '2.0.7'
 gem 'delayed_job_active_record', '0.3.2'
 gem 'barby'
 gem 'chunky_png'
+gem 'iconv'
 
 # Gems used only for assets and not required
 # in production environments by default.

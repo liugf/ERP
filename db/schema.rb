@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20160402013541) do
+ActiveRecord::Schema.define(:version => 20160403102344) do
 
   create_table "app_bill_dispatch_records", :force => true do |t|
     t.string   "application_id"
@@ -304,7 +304,7 @@ ActiveRecord::Schema.define(:version => 20160402013541) do
     t.string   "local_transport_tool_voyage_no"
     t.datetime "created_at",                     :null => false
     t.datetime "updated_at",                     :null => false
-    t.string   "transit_type"
+    t.string   "transit_declaration_type"
     t.string   "transit_declaration_enterprise"
   end
 
@@ -391,6 +391,11 @@ ActiveRecord::Schema.define(:version => 20160402013541) do
     t.datetime "updated_at", :null => false
   end
 
+  create_table "dict_bill_types", :force => true do |t|
+    t.string "code"
+    t.string "name"
+  end
+
   create_table "dict_brackets", :force => true do |t|
     t.string   "code"
     t.string   "name"
@@ -406,6 +411,11 @@ ActiveRecord::Schema.define(:version => 20160402013541) do
     t.string   "name"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
+  end
+
+  create_table "dict_check_sureties", :force => true do |t|
+    t.string "code"
+    t.string "name"
   end
 
   create_table "dict_containers", :force => true do |t|

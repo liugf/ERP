@@ -16,7 +16,9 @@ module DeclarationsHelper
       action_view.assign({:declaration => declaration, :serial_no => serial_no})
       file = File.new(Settings["dispatch_paths"]["temp"] + "/" + declaration.pre_entry_no + ".xml", 'w')
       #file.puts(action_view.render(:template => "misc/declaration.xml.erb"))
-      file.puts(action_view.render(:template => "misc/declaration2.xml.erb"))
+      #file.puts(action_view.render(:template => "misc/declaration2.xml.erb"))
+      file.puts(action_view.render(:template => "misc/declaration2_0.xml.erb"))
+      
       file.close
       FileUtils.mv file, Settings["dispatch_paths"]["upload_temp"] + "/" + declaration.pre_entry_no + ".xml"
       DispatchRecord.new({:declaration_id => id,
@@ -30,21 +32,21 @@ module DeclarationsHelper
     end
   end
 
-  def tcs(attribute, value)
-    if value.blank?
-      "<#{attribute} xsi:nil=\"true\" />"
-    else
-      "<#{attribute}>#{value}</#{attribute}>"
-    end
-  end
-
   #def tcs(attribute, value)
   #  if value.blank?
-  #    "<tcs:#{attribute} xsi:nil=\"true\" />"
+  #    "<#{attribute} xsi:nil=\"true\" />"
   #  else
-  #    "<tcs:#{attribute}>#{value}</tcs:#{attribute}>"
+  #    "<#{attribute}>#{value}</#{attribute}>"
   #  end
   #end
+
+  def tcs(attribute, value)
+    if value.blank?
+      "<tcs:#{attribute} xsi:nil=\"true\" />"
+    else
+      "<tcs:#{attribute}>#{value}</tcs:#{attribute}>"
+    end
+  end
 
   def ith_result_material_balance(contract,i)
     ith_result = []

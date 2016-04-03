@@ -139,6 +139,16 @@
 			<br />
 			转关申报类型表 </span></a>
 	</li>
+	<li>
+		<a class="shortcut-button" href="<%= dict_bill_types_path %>"><span> <%= image_tag("icons/db_48.png", :alt => "icon") %>
+			<br />
+			备案清单类型 </span></a>
+	</li>
+	<li>
+		<a class="shortcut-button" href="<%= dict_check_sureties_path %>"><span> <%= image_tag("icons/db_48.png", :alt => "icon") %>
+			<br />
+			担保验放 </span></a>
+	</li>
   <% if current_user.is?("admin") %>
       <li>
         <a class="shortcut-button" href="<%= dict_fees_path %>"><span> <%= image_tag("icons/db_48.png", :alt => "icon") %>

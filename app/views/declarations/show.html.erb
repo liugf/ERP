@@ -194,12 +194,21 @@
 
       <p>
         <b>申报单位:</b>
-        <span class="autoload" data-url=<%= dict_countries_path %> ><%= @declaration.declare_enterprise.name %></span>
+        <span class="autoload" data-url=<%= enterprises_path %> ><%= @declaration.declare_enterprise.code %></span>
       </p>
 
       <p>
         <b>收发货人:</b>
         <span class="autoload" data-url=<%= enterprises_path %>><%= @declaration.operate_enterprise_code %></span>
+     </p>
+
+     <p>
+        <b>担保验放</b>
+        <span class="autoload" data-url=<%= dict_check_sureties_path %> ><%= @declaration.check_surety %></span>
+     </p>
+     <p>
+        <b>备案清单类型</b>
+        <span class="autoload" data-url=<%= dict_bill_types_path %> ><%= @declaration.bill_type %></span>
      </p>
 
 
@@ -253,12 +262,12 @@
         <fieldset>
           <legend>转关信息：</legend>
           <p>
-            <b>转关申报类型</b>
-            <%= @declaration.declaration_transit_information.transit_declaration_type %>
+            <b>转关申报类型：</b>
+            <span class="autoload" data-url=<%= dict_transit_declaration_types_path %>><%= @declaration.declaration_transit_information.transit_declaration_type %></span>
           </p>
 
           <p>
-            <b>转关申报单位统一代码</b>
+            <b>转关申报单位统一代码：</b>
             <span class="autoload" data-url=<%= enterprises_path %>><%= @declaration.declaration_transit_information.transit_declaration_enterprise %></span>
           </p>
 

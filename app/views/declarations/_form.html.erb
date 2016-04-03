@@ -51,6 +51,25 @@
                     }
                 });
             });
+            if ($("#is_special_relationship").is(":checked")) {
+                $("#is_price_influence").prop("disabled", false);
+                $("#is_price_influence_div").css("color", "black");
+            }
+            else {
+                $("#is_price_influence").prop("disabled", true);
+                $("#is_price_influence_div").css("color", "#aaa");
+            }
+            $("#is_special_relationship").click(function(){
+              if ($("#is_special_relationship").is(":checked")) {
+                $("#is_price_influence").prop("disabled", false);
+                $("#is_price_influence_div").css("color", "black");
+              }
+              else {
+                $("#is_price_influence").prop("disabled", true);
+                $("#is_price_influence_div").css("color", "#aaa");
+              }
+
+            })
         });
     </script>
     <div class="filed">
@@ -245,6 +264,17 @@
         <label>贸易国(地区):</label>
         <%= render "shared/autocomplete_field", :form => f, :attribute => :trade_area, :url => dict_countries_path, :klass => "text-input small-input" %> 
     </div>
+
+    <div class="filed">
+      <label>备案清单类型</label>
+      <%= render "shared/combobox_field", :form => f, :attribute => :bill_type, :model => Dict::BillType, :width=>"170px" ,:klass => "text-input " %>
+    </div>
+
+    <div class="filed">
+      <label>担保验放</label>
+      <%= render "shared/combobox_field", :form => f, :attribute => :check_surety, :model => Dict::CheckSurety, :width=>"170px" ,:klass => "text-input " %>
+    </div>
+
     </fieldset>
 
 
@@ -252,11 +282,11 @@
       <legend>承诺事项：</legend>
      <div class="filed">
       <label>特殊关系确认</label>
-      <%= f.check_box :is_special_relationship, :class => "text-input small-input" %>
+      <%= f.check_box :is_special_relationship, :class => "text-input small-input", :id => "is_special_relationship" %>
     </div>
-     <div class="filed">
+     <div class="filed" id="is_price_influence_div">
       <label>价格影响确认</label>
-      <%= f.check_box :is_price_influence, :class => "text-input small-input" %>
+      <%= f.check_box :is_price_influence, :class => "text-input small-input", :id => "is_price_influence" %>
     </div>
      <div class="filed">
       <label>支付特许权使用费确认</label>

@@ -58,7 +58,7 @@
       </div>
       <div class="tr">
         <div class="td" style="width:70%">起止日期:
-          从<span class="content"><%=	 @from %></span>到<span class="content"><%=	 @to %></span>
+         从<span class="content"><%=  @from %></span>到<span class="content"><%=   @to %></span>
         </div>
       </div>
       <div class="tr" style="height: 20px;"></div>
@@ -74,7 +74,7 @@
           <div class="td" style="width:50px;">无纸</div>
           <div class="td" style="width:70px;">无纸删单</div>
         </div>
-        <%	start = page_count*page_size  %>
+        <%  start = page_count*page_size  %>
         <%  tail  =  (page_count + 1) * page_size - 1 > declarations_size ? declarations_size : (page_count + 1) * page_size - 1%>
         <!--每一项-->
         <% @declarations[start..tail].each_with_index do |declaration,i| %>

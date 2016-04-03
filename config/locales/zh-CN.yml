@@ -50,6 +50,8 @@ zh-CN:
       dict/wrap_type: 包装种类
       dict/transit_type: 报关类型
       dict/transit_declaration_type: 转关申报类型
+      dict/bill_type: 备案清单类型
+      dict/check_surety: 担保验放
       dict/fee: 费用种类
       
         

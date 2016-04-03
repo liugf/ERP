@@ -1,0 +1,19 @@
+<div class="content-box">
+	<div class="content-box-header">
+		<h3>查看<%= @model_name %></h3>
+		<div class="operations">
+			<%= link_to '编辑', edit_dict_check_surety_path(@item) %> |
+			<%= link_to '返回列表', dict_check_sureties_path %>
+		</div>
+	</div>
+	<div class="content-box-content">
+		<div class="tab-content default-tab">
+			<p>
+				<b>编码</b>：<%= @item.code %>
+			</p>
+			<p>
+				<b>名称</b>：<%= @item.name %>
+			</p>
+		</div>
+	</div>
+</div>
