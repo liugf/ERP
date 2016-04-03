@@ -47,7 +47,7 @@
         </tcs:TaskControl>
       </tcs:TcsFlow>
       <tcs:TcsData>
-        <tcs:DeclarationDocument xsi:schemaLocation="http://www.chinaport.gov.cn/tcs/v2" xmlns:tcs="http://www.chinaport.gov.cn/tcs/v2">
+        <tcs:DeclarationDocument xsi:schemaLocation="http://www.chinaport.gov.cn/tcs/v2 Declaration.xsd" xmlns:tcs="http://www.chinaport.gov.cn/tcs/v2">
           <%= raw tcs("TcsDocumentNo", (custom_option.platform_id + '001' + now.strftime('%Y%m%d') + @serial_no rescue '')) %>
           <tcs:DataCooperationType>001</tcs:DataCooperationType>
           <tcs:EntryInformation>
@@ -157,7 +157,6 @@
               <tcs:EntrydeclarantNo xsi:nil="true" />
               <%= raw tcs("ICCardNo", (custom_option.ic_card_no rescue '')) %>
               <%= raw tcs("Name", (@declaration.declarant rescue '')) %>
-              <!-- 3.29 update -->
               <%= raw tcs("ChkSurety", (@declaration.check_surety rescue '') ) %>
               <%= raw tcs("BillType", (@declaration.bill_type rescue '') ) %>
               <%= raw tcs("AgentCodeScc", (@declaration.declare_enterprise.code rescue '' ) ) %>
