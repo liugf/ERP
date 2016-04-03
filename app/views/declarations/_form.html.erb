@@ -5,19 +5,23 @@
     <%= f.hidden_field :enterprise_id %>
     <%= f.hidden_field :declaration_type %>
     <div class="filed">
-      <label><%= @declaration_type == "export" ? "出口" : "进口" %>口岸</label>
-      <%= render "shared/autocomplete_field", :form => f, :attribute => :custom, :url => dict_customs_path, :klass => "text-input small-input" %>
+      <label>手册编号</label>
+      <% contracts_array = current_enterprise.contracts.map { |contract| [contract.manual, contract.id] } %>
+      <% contracts_array = [["请选择", 0]] + contracts_array %>
+      <%= f.select :contract_id, contracts_array, {}, :id => "contract_id_combobox", :width=>"170px", :class => "text-input" %>
     </div>
-	<div class="filed">
-		<label>申报地海关</label>
-		<%= render "shared/autocomplete_field", :form => f, :attribute => :custom_code, :url => dict_customs_path, :klass => "text-input small-input" %> 
-		<br />
-	</div>
+
+    <div class="filed">
+      <label>合同号</label>
+      <%= f.text_field :contract_no, :class => "text-input small-input" %>
+    </div>
+
     <div class="filed">
       <label>申报日期</label>
       <%= f.date_select :declare_date, :class => "text-input small-input" %>
     </div>
-    <% if @declaration_type == "import" %>
+
+     <% if @declaration_type == "import" %>
     <div class="filed">
       <label>进口日期</label>
       <%= f.date_select :import_export_date, :class => "text-input small-input" %>
@@ -27,12 +31,228 @@
           <label></label>
         </div>
     <% end %>
+
     <div class="filed">
-      <label>备案号</label>
-      <% contracts_array = current_enterprise.contracts.map { |contract| [contract.manual, contract.id] } %>
-      <% contracts_array = [["请选择", 0]] + contracts_array %>
-      <%= f.select :contract_id, contracts_array, {}, :id => "contract_id_combobox", :width=>"170px", :class => "text-input" %>
+      <label>收发货人</label>
+      <%= render "shared/autocomplete_field", :form => f, :attribute => :operate_enterprise_code, :url => enterprises_path, :klass => "text-input small-input first-field" %>
     </div>
+
+    <div class="filed">
+      <label>监管方式</label>
+      <%= render "shared/autocomplete_field", :form => f, :attribute => :trade_mode, :url => dict_trade_modes_path, :klass => "text-input small-input" %>
+    </div>
+
+    <div class="filed">
+      <label>征免性质</label>
+      <%= render "shared/autocomplete_field", :form => f, :attribute => :tax_kind, :url => dict_tax_kinds_path, :klass => "text-input small-input" %>
+    </div>
+
+    <div class="filed">
+      <label><%= @declaration_type == "export" ? "境内货源地" : "境内目的地" %></label>
+      <%= render "shared/autocomplete_field", :form => f,  :attribute => :destination, :url => dict_districts_path, :klass => "text-input small-input" %>
+    </div>
+    
+    <div class="filed" >
+        <label>贸易国(地区):</label>
+        <%= render "shared/autocomplete_field", :form => f, :attribute => :trade_area, :url => dict_countries_path, :klass => "text-input small-input" %> 
+    </div>
+
+    <div class="filed">
+      <label><%= @declaration_type == "export" ? "运抵国" : "启运国" %></label>
+      <%= render "shared/autocomplete_field", :form => f, :attribute => :trade_country, :url => dict_countries_path, :klass => "text-input small-input" %>
+    </div>
+
+    <div class="filed">
+      <label><%= @declaration_type == "export" ? "指运港" : "装货港" %></label>
+      <%= render "shared/autocomplete_field", :form => f, :attribute => :port, :url => dict_ports_path, :klass => "text-input small-input" %>
+    </div>
+
+    <div class="filed">
+      <label>汽车编号</label>
+      <%= f.text_field :truck, :class => "text-input small-input" %>
+      <br/>
+      <small>输入6个字符后有提示</small>
+    </div>
+    <script>
+        $(function () {
+            $("#declaration_truck").autocomplete({
+                source: function (request, response) {
+                    var url = "<%= dict_trucks_path %>/search.json?term=" + request.term
+                    $.get(url, function (result) {
+                        response($.map(result, function (item) {
+                            item.label = item.code + item.name;
+                            item.value = item.code;
+                            return item;
+                        }));
+                    });
+                },
+                minLength: 6,
+                select: function (event, ui) {
+                    $("#declaration_bill_no").val(ui.item.name);
+                    $("#local_transport_tool_code_autocomplete").val(ui.item.code).blur();
+                    $("#declaration_declaration_transit_information_attributes_local_transport_tool_name").val(ui.item.name);
+
+                }
+            });
+        });
+    </script>
+
+    <div class="filed">
+      <label>运输方式</label>
+      <%= render "shared/combobox_field", :form => f, :attribute => :transport_mode, :model => Dict::TransportMode, :width=>"170px", :klass => "text-input" %>
+    </div>
+    
+    <div class="filed">
+      <label>运输工具名称</label>
+      <%= f.text_field :transport_tool, :class => "text-input small-input" %>
+    </div>
+
+   <div class="filed">
+      <label>航次</label>
+      <%= f.text_field :voyage_no, :class => "text-input small-input", :onkeypress => "" %>
+    </div>
+
+    <div class="filed">
+      <label>提运单号</label>
+      <%= f.text_field :bill_no, :class => "text-input small-input" %>
+    </div>
+ 
+     <div class="filed">
+      <label>成交方式</label>
+      <%= render "shared/autocomplete_field", :form => f, :attribute => :deal_mode, :url => dict_deal_modes_path, :min_length => 1, :klass => "text-input small-input" %>
+    </div>
+
+    <div class="filed">
+      <label>运费（预留）</label>
+    </div>
+
+    <div class="filed">
+      <label>保费（预留）</label>
+    </div>
+
+    <div class="filed">
+      <label>杂费（预留）</label>
+    </div>
+
+    <div class="filed">
+      <label>件数</label>
+      <%= f.text_field :package_amount, :class => "text-input small-input" %>
+    </div>
+    
+    <div class="filed">
+      <label>总毛重</label>
+      <%= f.text_field :gross_weight, :class => "text-input small-input" %>
+    </div>
+
+    <div class="filed">
+      <label>总净重</label>
+      <%= f.text_field :net_weight, :class => "text-input small-input" %>
+    </div>
+
+    <div class="filed">
+      <label>包装种类</label>
+      <%= render "shared/autocomplete_field", :form => f, :attribute => :wrap_type, :url => dict_wrap_types_path, :min_length => 1, :klass => "text-input small-input" %>
+    </div>
+
+    <div class="filed">
+      <label><%= @declaration_type == "export" ? "出口" : "进口" %>口岸</label>
+      <%= render "shared/autocomplete_field", :form => f, :attribute => :custom, :url => dict_customs_path, :klass => "text-input small-input" %>
+    </div>
+
+	  <div class="filed">
+		  <label>申报地海关</label>
+		  <%= render "shared/autocomplete_field", :form => f, :attribute => :custom_code, :url => dict_customs_path, :klass => "text-input small-input" %> 
+		 <br />
+	  </div>
+
+    <div class="filed">
+      <label>装卸口岸</label>
+      <%= render "shared/autocomplete_field", :form => f, :attribute => :load_port, :url => dict_load_ports_path, :min_length => 2, :klass => "text-input small-input" %>
+    </div>
+
+    <div class="filed">
+      <label>许可证号（预留）</label>
+    </div>
+
+    <div class="filed">
+      <label>备注</label>
+      <%= f.text_field :memo, :class => "text-input small-input" %>
+    </div>
+
+    <div class="filed">
+    </div>
+
+    <div class="filed">
+      <label>随附单证</label>
+      <%= f.text_field :attachments_mark, :class => "text-input small-input" %>
+    </div>
+    <div class="filed">
+      <label>保税/监管场所</label>
+      <%= f.text_field :warehouse_no, :class => "text-input small-input" %>
+    </div>
+
+   <div class="filed">
+      <label>申报单位</label>
+      <%= render "shared/autocomplete_field", :form => f, :attribute => :declare_enterprise_code, :url => enterprises_path, :klass => "text-input small-input" %>
+    </div>
+
+    <div class="filed">
+      <label>报关人员</label>
+      <%= f.text_field :declarant, :class => "text-input small-input" %>
+    </div>
+
+     <div class="filed">
+      <label>外商公司</label>
+      <%= render "shared/autocomplete_field", :form => f, :attribute => :foreign_enterprise_code, :url => foreign_enterprises_path, :klass => "text-input small-input" %>
+    </div>
+    
+    <div class="filed">
+      <label>预录入号</label>
+      <%= f.text_field :pre_entry_no, :class => "text-input small-input", :readonly => "readonly" %>
+      <br/>
+      <small>预录入号由系统自动生成</small>
+    </div>
+
+   <div class="filed">
+      <label>报关类型</label>
+      <%= render "shared/combobox_field", :form => f, :attribute => :transit_type, :model => Dict::TransitType, :width=>"170px", :klass => "text-input" %>
+    </div>
+    <script>
+        $(document).ready(function () {
+            if ($("#transit_type_combobox").val() != "003") {
+                $("#transit_filedset").hide();
+            }
+            $("#transit_type_combobox").change(function () {
+                if (this.value == "003") {
+                    $("#transit_filedset").show();
+                } else {
+                    $("#transit_filedset").hide();
+                }
+            });
+        });
+    </script>
+
+    <div class="filed">
+      <label>报关型式</label>
+      <%= render "shared/combobox_field", :form => f, :attribute => :declaration_mode, :model => Dict::DeclareMode, :width=>"170px" ,:klass => "text-input " %>
+    </div>
+
+    <div class="filed">
+      <label>报关单号</label>
+      <%= f.text_field :entry_no, :class => "text-input small-input" %>
+      <br/>
+      <small>报关成功后自动录入</small>
+    </div>
+
+    <div class="filed">
+      <label>统一编号</label>
+      <%= f.text_field :eport_no, :class => "text-input small-input" %>
+      <br/>
+      <small>报关成功后自动录入</small>
+    </div>
+   
+   
+    
     <script type="text/javascript">
 
         $(function () {
@@ -72,55 +292,7 @@
             })
         });
     </script>
-    <div class="filed">
-      <label>收发货人</label>
-      <%= render "shared/autocomplete_field", :form => f, :attribute => :operate_enterprise_code, :url => enterprises_path, :klass => "text-input small-input first-field" %>
-    </div>
-    <div class="filed">
-      <label>贸易方式</label>
-      <%= render "shared/autocomplete_field", :form => f, :attribute => :trade_mode, :url => dict_trade_modes_path, :klass => "text-input small-input" %>
-    </div>
-    <div class="filed">
-      <label>征免性质</label>
-      <%= render "shared/autocomplete_field", :form => f, :attribute => :tax_kind, :url => dict_tax_kinds_path, :klass => "text-input small-input" %>
-    </div>
-    <div class="filed">
-      <label>合同号</label>
-      <%= f.text_field :contract_no, :class => "text-input small-input" %>
-    </div>
-    <div class="filed">
-      <label>外商公司</label>
-      <%= render "shared/autocomplete_field", :form => f, :attribute => :foreign_enterprise_code, :url => foreign_enterprises_path, :klass => "text-input small-input" %>
-    </div>
-    <div class="filed">
-      <label>汽车编号</label>
-      <%= f.text_field :truck, :class => "text-input small-input" %>
-      <br/>
-      <small>输入6个字符后有提示</small>
-    </div>
-    <script>
-        $(function () {
-            $("#declaration_truck").autocomplete({
-                source: function (request, response) {
-                    var url = "<%= dict_trucks_path %>/search.json?term=" + request.term
-                    $.get(url, function (result) {
-                        response($.map(result, function (item) {
-                            item.label = item.code + item.name;
-                            item.value = item.code;
-                            return item;
-                        }));
-                    });
-                },
-                minLength: 6,
-                select: function (event, ui) {
-                    $("#declaration_bill_no").val(ui.item.name);
-                    $("#local_transport_tool_code_autocomplete").val(ui.item.code).blur();
-                    $("#declaration_declaration_transit_information_attributes_local_transport_tool_name").val(ui.item.name);
-
-                }
-            });
-        });
-    </script>
+    
     <% if @declaration_type == "import" %>
         <!--
         <div class="filed">
@@ -137,78 +309,7 @@
         </div>
         -->
     <% end %>
-    <div class="filed">
-      <label>运输方式</label>
-      <%= render "shared/combobox_field", :form => f, :attribute => :transport_mode, :model => Dict::TransportMode, :width=>"170px", :klass => "text-input" %>
-    </div>
-    <div class="filed">
-      <label>运输工具名称</label>
-      <%= f.text_field :transport_tool, :class => "text-input small-input" %>
-    </div>
-    <div class="filed">
-      <label>车牌/提运单号</label>
-      <%= f.text_field :bill_no, :class => "text-input small-input" %>
-    </div>
-    <div class="filed">
-      <label>航次</label>
-      <%= f.text_field :voyage_no, :class => "text-input small-input", :onkeypress => "" %>
-    </div>
-    <div class="filed">
-      <label><%= @declaration_type == "export" ? "运抵国" : "启运国" %></label>
-      <%= render "shared/autocomplete_field", :form => f, :attribute => :trade_country, :url => dict_countries_path, :klass => "text-input small-input" %>
-    </div>
-    <div class="filed">
-      <label><%= @declaration_type == "export" ? "指运港" : "装货港" %></label>
-      <%= render "shared/autocomplete_field", :form => f, :attribute => :port, :url => dict_ports_path, :klass => "text-input small-input" %>
-    </div>
-    <div class="filed">
-      <label>成交方式</label>
-      <%= render "shared/autocomplete_field", :form => f, :attribute => :deal_mode, :url => dict_deal_modes_path, :min_length => 1, :klass => "text-input small-input" %>
-    </div>
-    <div class="filed">
-      <label><%= @declaration_type == "export" ? "境内货源地" : "境内目的地" %></label>
-      <%= render "shared/autocomplete_field", :form => f,  :attribute => :destination, :url => dict_districts_path, :klass => "text-input small-input" %>
-    </div>
-    <div class="filed">
-      <label>件数</label>
-      <%= f.text_field :package_amount, :class => "text-input small-input" %>
-    </div>
-    <div class="filed">
-      <label>包装种类</label>
-      <%= render "shared/autocomplete_field", :form => f, :attribute => :wrap_type, :url => dict_wrap_types_path, :min_length => 1, :klass => "text-input small-input" %>
-    </div>
-    <div class="filed">
-      <label>总毛重</label>
-      <%= f.text_field :gross_weight, :class => "text-input small-input" %>
-    </div>
-    <div class="filed">
-      <label>总净重</label>
-      <%= f.text_field :net_weight, :class => "text-input small-input" %>
-    </div>
-    <div class="filed">
-      <label>备注</label>
-      <%= f.text_field :memo, :class => "text-input small-input" %>
-    </div>
-    <div class="filed">
-      <label>装卸口岸</label>
-      <%= render "shared/autocomplete_field", :form => f, :attribute => :load_port, :url => dict_load_ports_path, :min_length => 2, :klass => "text-input small-input" %>
-    </div>
-    <div class="filed">
-      <label>申报单位</label>
-      <%= render "shared/autocomplete_field", :form => f, :attribute => :declare_enterprise_code, :url => enterprises_path, :klass => "text-input small-input" %>
-    </div>
-    <div class="filed">
-      <label>报关人员</label>
-      <%= f.text_field :declarant, :class => "text-input small-input" %>
-    </div>
-    <div class="filed">
-      <label>随附单证</label>
-      <%= f.text_field :attachments_mark, :class => "text-input small-input" %>
-    </div>
-    <div class="filed">
-      <label>保税/监管场所</label>
-      <%= f.text_field :warehouse_no, :class => "text-input small-input" %>
-    </div>
+    
     <% if @declaration_type == "export" %>
         <!-- 
         <div class="filed">
@@ -217,53 +318,8 @@
         </div>
         -->
     <% end %>
-    <div class="filed">
-      <label>报关类型</label>
-      <%= render "shared/combobox_field", :form => f, :attribute => :transit_type, :model => Dict::TransitType, :width=>"170px", :klass => "text-input" %>
-    </div>
-    <script>
-        $(document).ready(function () {
-            if ($("#transit_type_combobox").val() != "003") {
-                $("#transit_filedset").hide();
-            }
-            $("#transit_type_combobox").change(function () {
-                if (this.value == "003") {
-                    $("#transit_filedset").show();
-                } else {
-                    $("#transit_filedset").hide();
-                }
-            });
-        });
-    </script>
+    
 
-    <div class="filed">
-      <label>报关型式</label>
-      <%= render "shared/combobox_field", :form => f, :attribute => :declaration_mode, :model => Dict::DeclareMode, :width=>"170px" ,:klass => "text-input " %>
-    </div>
-
-    <div class="filed">
-      <label>预录入号</label>
-      <%= f.text_field :pre_entry_no, :class => "text-input small-input", :readonly => "readonly" %>
-      <br/>
-      <small>预录入号由系统自动生成</small>
-    </div>
-    <div class="filed">
-      <label>电子口岸号</label>
-      <%= f.text_field :eport_no, :class => "text-input small-input" %>
-      <br/>
-      <small>报关成功后自动录入</small>
-    </div>
-    <div class="filed">
-      <label>报关单号</label>
-      <%= f.text_field :entry_no, :class => "text-input small-input" %>
-      <br/>
-      <small>报关成功后自动录入</small>
-    </div>
-
-    <div class="filed" >
-        <label>贸易国(地区):</label>
-        <%= render "shared/autocomplete_field", :form => f, :attribute => :trade_area, :url => dict_countries_path, :klass => "text-input small-input" %> 
-    </div>
 
     <div class="filed">
       <label>备案清单类型</label>
