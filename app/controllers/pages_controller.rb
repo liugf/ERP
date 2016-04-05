@@ -10,7 +10,7 @@ class PagesController < ApplicationController
     enterprise = Enterprise.find_by_id(params[:current_enterprise_id])
     if enterprise
       set_current_enterprise enterprise
-      flash[:success] = "切换当前操作企业为：" + enterprise.name   
+      flash[:success] = "切换当前生产销售单位为：" + enterprise.name   
     end
     redirect_to params[:url]
   end

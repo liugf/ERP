@@ -12,8 +12,8 @@
     </div>
 
     <div class="filed">
-      <label>合同号</label>
-      <%= f.text_field :contract_no, :class => "text-input small-input" %>
+      <label>收发货人</label>
+      <%= render "shared/autocomplete_field", :form => f, :attribute => :operate_enterprise_code, :url => enterprises_path, :klass => "text-input small-input first-field" %>
     </div>
 
     <div class="filed">
@@ -33,8 +33,8 @@
     <% end %>
 
     <div class="filed">
-      <label>收发货人</label>
-      <%= render "shared/autocomplete_field", :form => f, :attribute => :operate_enterprise_code, :url => enterprises_path, :klass => "text-input small-input first-field" %>
+      <label>合同号</label>
+      <%= f.text_field :contract_no, :class => "text-input small-input" %>
     </div>
 
     <div class="filed">
@@ -52,6 +52,27 @@
       <%= render "shared/autocomplete_field", :form => f,  :attribute => :destination, :url => dict_districts_path, :klass => "text-input small-input" %>
     </div>
     
+    <div class="filed">
+      <label>件数</label>
+      <%= f.text_field :package_amount, :class => "text-input small-input" %>
+    </div>
+    
+    <div class="filed">
+      <label>总毛重</label>
+      <%= f.text_field :gross_weight, :class => "text-input small-input" %>
+    </div>
+
+    <div class="filed">
+      <label>总净重</label>
+      <%= f.text_field :net_weight, :class => "text-input small-input" %>
+    </div>
+
+    <div class="filed">
+      <label>包装种类</label>
+      <%= render "shared/autocomplete_field", :form => f, :attribute => :wrap_type, :url => dict_wrap_types_path, :min_length => 1, :klass => "text-input small-input" %>
+    </div>
+
+
     <div class="filed" >
         <label>贸易国(地区):</label>
         <%= render "shared/autocomplete_field", :form => f, :attribute => :trade_area, :url => dict_countries_path, :klass => "text-input small-input" %> 
@@ -116,54 +137,18 @@
       <label>提运单号</label>
       <%= f.text_field :bill_no, :class => "text-input small-input" %>
     </div>
- 
-     <div class="filed">
-      <label>成交方式</label>
-      <%= render "shared/autocomplete_field", :form => f, :attribute => :deal_mode, :url => dict_deal_modes_path, :min_length => 1, :klass => "text-input small-input" %>
-    </div>
 
-    <div class="filed">
-      <label>运费（预留）</label>
-    </div>
-
-    <div class="filed">
-      <label>保费（预留）</label>
-    </div>
-
-    <div class="filed">
-      <label>杂费（预留）</label>
-    </div>
-
-    <div class="filed">
-      <label>件数</label>
-      <%= f.text_field :package_amount, :class => "text-input small-input" %>
-    </div>
-    
-    <div class="filed">
-      <label>总毛重</label>
-      <%= f.text_field :gross_weight, :class => "text-input small-input" %>
-    </div>
-
-    <div class="filed">
-      <label>总净重</label>
-      <%= f.text_field :net_weight, :class => "text-input small-input" %>
-    </div>
-
-    <div class="filed">
-      <label>包装种类</label>
-      <%= render "shared/autocomplete_field", :form => f, :attribute => :wrap_type, :url => dict_wrap_types_path, :min_length => 1, :klass => "text-input small-input" %>
-    </div>
 
     <div class="filed">
       <label><%= @declaration_type == "export" ? "出口" : "进口" %>口岸</label>
       <%= render "shared/autocomplete_field", :form => f, :attribute => :custom, :url => dict_customs_path, :klass => "text-input small-input" %>
     </div>
 
-	  <div class="filed">
-		  <label>申报地海关</label>
-		  <%= render "shared/autocomplete_field", :form => f, :attribute => :custom_code, :url => dict_customs_path, :klass => "text-input small-input" %> 
-		 <br />
-	  </div>
+    <div class="filed">
+      <label>申报地海关</label>
+      <%= render "shared/autocomplete_field", :form => f, :attribute => :custom_code, :url => dict_customs_path, :klass => "text-input small-input" %> 
+     <br />
+    </div>
 
     <div class="filed">
       <label>装卸口岸</label>
@@ -171,27 +156,16 @@
     </div>
 
     <div class="filed">
-      <label>许可证号（预留）</label>
+      <label>随附单证</label>
+      <%= f.text_field :attachments_mark, :class => "text-input small-input" %>
     </div>
 
-    <div class="filed">
+     <div class="filed">
       <label>备注</label>
       <%= f.text_field :memo, :class => "text-input small-input" %>
     </div>
 
-    <div class="filed">
-    </div>
-
-    <div class="filed">
-      <label>随附单证</label>
-      <%= f.text_field :attachments_mark, :class => "text-input small-input" %>
-    </div>
-    <div class="filed">
-      <label>保税/监管场所</label>
-      <%= f.text_field :warehouse_no, :class => "text-input small-input" %>
-    </div>
-
-   <div class="filed">
+     <div class="filed">
       <label>申报单位</label>
       <%= render "shared/autocomplete_field", :form => f, :attribute => :declare_enterprise_code, :url => enterprises_path, :klass => "text-input small-input" %>
     </div>
@@ -201,10 +175,99 @@
       <%= f.text_field :declarant, :class => "text-input small-input" %>
     </div>
 
-     <div class="filed">
+    <div class="filed">
       <label>外商公司</label>
       <%= render "shared/autocomplete_field", :form => f, :attribute => :foreign_enterprise_code, :url => foreign_enterprises_path, :klass => "text-input small-input" %>
     </div>
+
+
+     <div class="filed">
+      <label>成交方式</label>
+      <%= render "shared/autocomplete_field", :form => f, :attribute => :deal_mode, :url => dict_deal_modes_path, :min_length => 1, :klass => "text-input small-input" %>
+    </div>
+
+    <div class="filed">
+      <label>运费</label>
+      <%= f.text_field :transport_price, :class => "text-input small-input" %>
+
+    </div>
+
+    <div class="filed">
+      <label>保费</label>
+      <%= f.text_field :protect_price, :class => "text-input small-input" %>
+
+    </div>
+
+    <div class="filed">
+      <label>杂费</label>
+      <%= f.text_field :trivial_price, :class => "text-input small-input" %>
+    </div>
+
+    <div class="filed">
+      <label>运费标志</label>
+      <%= f.text_field :transport_price_flag, :class => "text-input small-input" %>
+
+    </div>
+
+    <div class="filed">
+      <label>保费标志</label>
+      <%= f.text_field :protect_price_flag, :class => "text-input small-input" %>
+
+    </div>
+
+    <div class="filed">
+      <label>杂费标志</label>
+      <%= f.text_field :trivial_price_flag, :class => "text-input small-input" %>
+    </div>
+
+    <div class="filed">
+      <label>运费币制</label>
+      <%= render "shared/autocomplete_field", :form => f, :attribute => :transport_currency, :url => dict_currencies_path, :klass => "text-input small-input" %>
+    </div>
+
+    <div class="filed">
+      <label>保费币制</label>
+      <%= render "shared/autocomplete_field", :form => f, :attribute => :protect_currency, :url => dict_currencies_path, :klass => "text-input small-input" %>
+
+    </div>
+
+    <div class="filed">
+      <label>杂费币制</label>
+      <%= render "shared/autocomplete_field", :form => f, :attribute => :trivial_currency, :url => dict_currencies_path, :klass => "text-input small-input" %>
+
+    </div>
+
+  
+
+    <div class="filed">
+      <label>许可证号</label>          
+      <%= f.text_field :allow_no, :class => "text-input small-input" %>
+
+    </div>
+
+   
+    
+    
+    <div class="filed">
+      <label>保税/监管场所</label>
+      <%= f.text_field :warehouse_no, :class => "text-input small-input" %>
+    </div>
+
+
+    <div class="filed">
+      <label>电子口岸号</label>
+      <%= f.text_field :eport_no, :class => "text-input small-input" %>
+      <br/>
+      <small>报关成功后自动录入</small>
+    </div>
+  
+    <div class="filed">
+      <label>报关单号</label>
+      <%= f.text_field :entry_no, :class => "text-input small-input" %>
+      <br/>
+      <small>报关成功后自动录入</small>
+    </div>
+
     
     <div class="filed">
       <label>预录入号</label>
@@ -214,7 +277,7 @@
     </div>
 
    <div class="filed">
-      <label>报关类型</label>
+      <label>转关类型</label>
       <%= render "shared/combobox_field", :form => f, :attribute => :transit_type, :model => Dict::TransitType, :width=>"170px", :klass => "text-input" %>
     </div>
     <script>
@@ -237,20 +300,17 @@
       <%= render "shared/combobox_field", :form => f, :attribute => :declaration_mode, :model => Dict::DeclareMode, :width=>"170px" ,:klass => "text-input " %>
     </div>
 
+    
+   
     <div class="filed">
-      <label>报关单号</label>
-      <%= f.text_field :entry_no, :class => "text-input small-input" %>
-      <br/>
-      <small>报关成功后自动录入</small>
+      <label>备案清单类型</label>
+      <%= render "shared/combobox_field", :form => f, :attribute => :bill_type, :model => Dict::BillType, :width=>"170px" ,:klass => "text-input " %>
     </div>
 
     <div class="filed">
-      <label>统一编号</label>
-      <%= f.text_field :eport_no, :class => "text-input small-input" %>
-      <br/>
-      <small>报关成功后自动录入</small>
+      <label>担保验放</label>
+      <%= render "shared/combobox_field", :form => f, :attribute => :check_surety, :model => Dict::CheckSurety, :width=>"170px" ,:klass => "text-input " %>
     </div>
-   
    
     
     <script type="text/javascript">
@@ -321,15 +381,7 @@
     
 
 
-    <div class="filed">
-      <label>备案清单类型</label>
-      <%= render "shared/combobox_field", :form => f, :attribute => :bill_type, :model => Dict::BillType, :width=>"170px" ,:klass => "text-input " %>
-    </div>
 
-    <div class="filed">
-      <label>担保验放</label>
-      <%= render "shared/combobox_field", :form => f, :attribute => :check_surety, :model => Dict::CheckSurety, :width=>"170px" ,:klass => "text-input " %>
-    </div>
 
     </fieldset>
 

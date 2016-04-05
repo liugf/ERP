@@ -9,9 +9,9 @@ $(function() {
 <%= form_tag(select_enterprise_path, :method => "post", :id => 'enterprise_selector_form') do %>
 <p>
 	<input name="url" type="hidden" value="<%= request.url %>"/>
-	<label style="display: inline;" >当前操作企业：</label>
+	<label style="display: inline;" >当前生产销售单位：</label>
 	<select name="current_enterprise_id" id="current_enterprise_id" class="medium-input" >
-	  <option value="0">请选择企业</option>
+	  <option value="0">请选择单位</option>
 	  <% current_user.enterprises.each do |enterprise| %>
 	  <option value="<%= enterprise.id %>" <% if current_enterprise == enterprise %> selected="selected"<% end %>><%= enterprise.code + enterprise.name %></option>
 	  <% end %>
