@@ -17,7 +17,7 @@ module DeclarationsHelper
       file = File.new(Settings["dispatch_paths"]["temp"] + "/" + declaration.pre_entry_no + ".xml", 'w')
       #file.puts(action_view.render(:template => "misc/declaration.xml.erb"))
       #file.puts(action_view.render(:template => "misc/declaration2.xml.erb"))
-      file.puts(action_view.render(:template => "misc/declaration2_0.xml.erb"))
+      file.puts(action_view.render(:template => "misc/declaration1_2.xml.erb"))
       
       file.close
       FileUtils.mv file, Settings["dispatch_paths"]["upload_temp"] + "/" + declaration.pre_entry_no + ".xml"
