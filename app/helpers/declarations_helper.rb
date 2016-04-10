@@ -32,21 +32,21 @@ module DeclarationsHelper
     end
   end
 
-  #def tcs(attribute, value)
-  #  if value.blank?
-  #    "<#{attribute} xsi:nil=\"true\" />"
-  #  else
-  #    "<#{attribute}>#{value}</#{attribute}>"
-  #  end
-  #end
-
   def tcs(attribute, value)
     if value.blank?
-      "<tcs:#{attribute} xsi:nil=\"true\" />"
+      "<#{attribute} xsi:nil=\"true\" />"
     else
-      "<tcs:#{attribute}>#{value}</tcs:#{attribute}>"
+      "<#{attribute}>#{value}</#{attribute}>"
     end
   end
+
+  # def tcs(attribute, value)
+  #   if value.blank?
+  #     "<tcs:#{attribute} xsi:nil=\"true\" />"
+  #   else
+  #     "<tcs:#{attribute}>#{value}</tcs:#{attribute}>"
+  #   end
+  # end
 
   def ith_result_material_balance(contract,i)
     ith_result = []
