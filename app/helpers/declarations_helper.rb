@@ -14,6 +14,7 @@ module DeclarationsHelper
         include ApplicationHelper, DeclarationsHelper, PrintHelper
       end
       file_name = declaration.pre_entry_no + "_" + version + ".xml"
+      #file_name = declaration.pre_entry_no + ".xml"
       action_view.assign({:declaration => declaration, :serial_no => serial_no})
       file = File.new(Settings["dispatch_paths"]["temp"] + "/" + file_name, 'w')
       file.puts(action_view.render(:template => "misc/declaration"+ version +".xml.erb"))

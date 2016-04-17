@@ -15,8 +15,8 @@
   </div>
 </div>
 <script>
-   $(function(){
-     $("#declare_button_1.2").click(function () {
+   $(document).ready(function(){
+    $("#declare_button_1").click(function () {
         if (confirm('确定要申报1.2版本的报文吗?')) {
             var url = this.getAttribute("href");
             $.get(url, function (result) {
@@ -26,7 +26,7 @@
         }
         return false;
     });
-     $("#declare_button_2.0").click(function () {
+     $("#declare_button_2").click(function () {
         if (confirm('确定要申报2.0版本的报文吗?')) {
             var url = this.getAttribute("href");
             $.get(url, function (result) {
@@ -397,13 +397,13 @@
   <div class="content-box-header">
     <h3>申报记录</h3>
     <div class="operations">
-        <% if can? :declare, @declaration %><%= link_to '申报（2.0版本）', declare_declaration_path(@declaration, :format => :json, :version => "2.0"), :id => "declare_button_2.0" %>
+        <% if can? :declare, @declaration %><%= link_to '申报（2.0版本）', declare_declaration_path(@declaration, :format => :json, :version => "2.0"), :id => "declare_button_2" %>
         <% end %>
-      </div>
-      <div class="operations">
-        <% if can? :declare, @declaration %><%= link_to '申报（1.2版本）', declare_declaration_path(@declaration, :format => :json, :version => "1.2"), :id => "declare_button_1.2" %>
+    </div>
+    <div class="operations">
+        <% if can? :declare, @declaration %><%= link_to '申报（1.2版本）', declare_declaration_path(@declaration, :format => :json, :version => "1.2"), :id => "declare_button_1" %>
         <% end %>
-      </div>
+    </div>
   </div>
   <div class="content-box-content">
     <div class="tab-content default-tab">
