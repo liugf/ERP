@@ -109,7 +109,8 @@ class DeclarationsController < ApplicationController
   # GET /declarations/1/declare.json
   def declare
     authorize! :declare, @declaration
-    if generate_declaration_xml(@declaration.id)
+    @version=params[:version] 
+    if generate_declaration_xml(@declaration.id, @version)
       result = {:type => "success", :content => "已经成功生成报文，请稍后再查询申报结果"}
     else
       result = {:type => "error", :content => "生成报文失败"}

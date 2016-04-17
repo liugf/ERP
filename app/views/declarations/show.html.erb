@@ -16,11 +16,20 @@
 </div>
 <script>
    $(function(){
-     $("#declare_button").click(function () {
-        if (confirm('确定要申报吗?')) {
+     $("#declare_button_1.2").click(function () {
+        if (confirm('确定要申报1.2版本的报文吗?')) {
             var url = this.getAttribute("href");
             $.get(url, function (result) {
-                //show_tips(result.type, result.content);
+                alert(result.content);
+                location.reload();
+            });
+        }
+        return false;
+    });
+     $("#declare_button_2.0").click(function () {
+        if (confirm('确定要申报2.0版本的报文吗?')) {
+            var url = this.getAttribute("href");
+            $.get(url, function (result) {
                 alert(result.content);
                 location.reload();
             });
@@ -387,8 +396,12 @@
 <div class="content-box">
   <div class="content-box-header">
     <h3>申报记录</h3>
+    <div class="operations">
+        <% if can? :declare, @declaration %><%= link_to '申报（2.0版本）', declare_declaration_path(@declaration, :format => :json, :version => "2.0"), :id => "declare_button_2.0" %>
+        <% end %>
+      </div>
       <div class="operations">
-        <% if can? :declare, @declaration %><%= link_to '申报', declare_declaration_path(@declaration, :format => :json), :id => "declare_button" %>
+        <% if can? :declare, @declaration %><%= link_to '申报（1.2版本）', declare_declaration_path(@declaration, :format => :json, :version => "1.2"), :id => "declare_button_1.2" %>
         <% end %>
       </div>
   </div>

@@ -2,7 +2,7 @@
 module DeclarationsHelper
   include  FileUtils, ApplicationHelper
 
-  def generate_declaration_xml(id)
+  def generate_declaration_xml(id, version)
     begin
       declaration = Declaration.find(id)
 
@@ -15,16 +15,14 @@ module DeclarationsHelper
       end
       action_view.assign({:declaration => declaration, :serial_no => serial_no})
       file = File.new(Settings["dispatch_paths"]["temp"] + "/" + declaration.pre_entry_no + ".xml", 'w')
-      #file.puts(action_view.render(:template => "misc/declaration.xml.erb"))
-      #file.puts(action_view.render(:template => "misc/declaration2.xml.erb"))
-      file.puts(action_view.render(:template => "misc/declaration1_2.xml.erb"))
+      file.puts(action_view.render(:template => "misc/declaration"+ version +".xml.erb"))
       
       file.close
       FileUtils.mv file, Settings["dispatch_paths"]["upload_temp"] + "/" + declaration.pre_entry_no + ".xml"
       DispatchRecord.new({:declaration_id => id,
                           :message_id => message_id,
                           :channel => '000',
-                          :note => '成功报文生成'}).save
+                          :note => version + '版本报文生成成功'}).save
       true
     rescue
       logger.error $!
@@ -40,13 +38,13 @@ module DeclarationsHelper
     end
   end
 
-  # def tcs(attribute, value)
-  #   if value.blank?
-  #     "<tcs:#{attribute} xsi:nil=\"true\" />"
-  #   else
-  #     "<tcs:#{attribute}>#{value}</tcs:#{attribute}>"
-  #   end
-  # end
+  def tcs_with_tcs_keyword(attribute, value)
+    if value.blank?
+      "<tcs:#{attribute} xsi:nil=\"true\" />"
+    else
+      "<tcs:#{attribute}>#{value}</tcs:#{attribute}>"
+    end
+  end
 
   def ith_result_material_balance(contract,i)
     ith_result = []
