@@ -13,12 +13,13 @@ module DeclarationsHelper
       action_view.class_eval do
         include ApplicationHelper, DeclarationsHelper, PrintHelper
       end
+      file_name = declaration.pre_entry_no + "_" + version + ".xml"
       action_view.assign({:declaration => declaration, :serial_no => serial_no})
-      file = File.new(Settings["dispatch_paths"]["temp"] + "/" + declaration.pre_entry_no + ".xml", 'w')
+      file = File.new(Settings["dispatch_paths"]["temp"] + "/" + file_name, 'w')
       file.puts(action_view.render(:template => "misc/declaration"+ version +".xml.erb"))
       
       file.close
-      FileUtils.mv file, Settings["dispatch_paths"]["upload_temp"] + "/" + declaration.pre_entry_no + ".xml"
+      FileUtils.mv file, Settings["dispatch_paths"]["upload_temp"] + "/" + file_name
       DispatchRecord.new({:declaration_id => id,
                           :message_id => message_id,
                           :channel => '000',
