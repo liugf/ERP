@@ -134,15 +134,19 @@
               <%= raw tcs_with_tcs_keyword("Packages", (@declaration.package_amount rescue '')) %>
               <%= raw tcs_with_tcs_keyword("NetWeight", (@declaration.net_weight rescue '')) %>
               <%= raw tcs_with_tcs_keyword("GrossWeight", (@declaration.gross_weight rescue '')) %>
-              <tcs:FreightMark xsi:nil="true" />
-              <tcs:FreightRate xsi:nil="true" />
-              <tcs:FreightCurrency xsi:nil="true" />
-              <tcs:InsuranceMark xsi:nil="true" />
-              <tcs:InsuranceRate xsi:nil="true" />
-              <tcs:InsuranceCurrency xsi:nil="true" />
-              <tcs:ExtrasMark xsi:nil="true" />
-              <tcs:ExtrasRate xsi:nil="true" />
-              <tcs:ExtrasCurrency xsi:nil="true" />
+
+              <%= raw tcs_with_tcs_keyword("FreightMark", (@declaration.transport_price rescue '')) %>
+              <%= raw tcs_with_tcs_keyword("FreightRate", (@declaration.transport_price_flag rescue '')) %>
+              <%= raw tcs_with_tcs_keyword("FreightCurrency", (@declaration.transport_currency rescue '')) %>
+
+              <%= raw tcs_with_tcs_keyword("InsuranceMark", (@declaration.protect_price rescue '')) %>
+              <%= raw tcs_with_tcs_keyword("InsuranceRate", (@declaration.protect_price_flag rescue '')) %>
+              <%= raw tcs_with_tcs_keyword("InsuranceCurrency", (@declaration.protect_currency rescue '')) %>
+              
+              <%= raw tcs_with_tcs_keyword("ExtrasMark", (@declaration.trivial_price rescue '')) %>
+              <%= raw tcs_with_tcs_keyword("ExtrasRate", (@declaration.trivial_price_flag rescue '')) %>
+              <%= raw tcs_with_tcs_keyword("ExtrasCurrency", (@declaration.trivial_currency rescue '')) %>
+
               <%= raw tcs_with_tcs_keyword("PayMode", (@declaration.pay_way rescue '')) %>
               <tcs:SaleDomesticRatio xsi:nil="true" />
               <% if @declaration.declaration_type == 'export' %>
