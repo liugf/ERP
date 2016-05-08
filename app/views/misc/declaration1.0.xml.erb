@@ -103,7 +103,7 @@
               <tcs:PreentryNo xsi:nil="true" />
               <tcs:EntryType>003</tcs:EntryType>
               <%= raw tcs("EntryTransitType", (@declaration.transit_type rescue '')) %>
-              <%= raw tcs("DeclareProperty", (@declaration.declaration_mode rescue '')) %>
+              <%= raw tcs("DeclareProperty", (@declaration.declare_mode rescue '')) %>
               <tcs:TaxCorporationType>002</tcs:TaxCorporationType>
               <%= raw tcs("DestinationCode", (@declaration.destination rescue '')) %>
               <tcs:WarehouseNo xsi:nil="true" />

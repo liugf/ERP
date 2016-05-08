@@ -133,7 +133,7 @@ class DeclarationsController < ApplicationController
                                      :deal_mode => @declaration_type == "export" ? "3" : "1",
                                      :declare_enterprise_code => "4419980074",
                                      :transit_type => "001",
-                                     :declaration_mode => "003",
+                                     :declare_mode => "003",
                                      :created_by => current_user.username)
       @declaration.declaration_transit_information = DeclarationTransitInformation.new(:local_transport_mode => 4)
     else
