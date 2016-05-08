@@ -196,9 +196,9 @@
       <div class="tr">
         <div class="td" style="width:210px;"><div class="bg-text not_print">许可证号</div> <span class="content"></span></div>
         <div class="td" style="width:97px;"><div class="bg-text not_print">成交方式</div> <span class="content"><%= dict_name Dict::DealMode, @declaration.deal_mode %></span></div>
-        <div class="td" style="width:157px;"><div class="bg-text not_print">运费</div> <span class="content"></span></div>
-        <div class="td" style="width:131px;"><div class="bg-text not_print">保费</div> <span class="content"></span></div>
-        <div class="td last-td" style="width:151px;"><div class="bg-text not_print">杂费</div> <span class="content"></span></div>
+        <div class="td" style="width:157px;"><div class="bg-text not_print">运费</div> <span class="content"><%= @declaration.transport_price%>/<%= @declaration.transport_price_flag %>/<%= dict_name Dict::Currency,  @declaration.transport_currency rescue ''%></span></div>
+        <div class="td" style="width:131px;"><div class="bg-text not_print">保费</div> <span class="content"><%= @declaration.protect_price%>/<%= @declaration.protect_price_flag %>/<%= dict_name Dict::Currency,  @declaration.protect_currency rescue ''%></span></div>
+        <div class="td last-td" style="width:151px;"><div class="bg-text not_print">杂费</div> <span class="content"><%= @declaration.trivial_price%>/<%= @declaration.trivial_price_flag %>/<%= dict_name Dict::Currency,  @declaration.trivial_currency rescue ''%></span></div>
       </div>
       <div class="tr">
         <div class="td" style="width:210px;"><div class="bg-text not_print">合同协议号</div> <span class="content"><%= @declaration.contract_no %></span></div>

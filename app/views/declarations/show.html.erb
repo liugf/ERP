@@ -1,42 +1,42 @@
 <div class="content-box">
-<div class="content-box-header">
-  <h3>查看报关单(<%= @declaration.pre_entry_no %>)</h3>
+  <div class="content-box-header">
+    <h3>查看报关单(<%= @declaration.pre_entry_no %>)</h3>
 
-  <div class="operations">
-    <%= link_to '复制', copy_declaration_path(@declaration) %> |
-    <% if can? :update, @declaration %><%= link_to '编辑', edit_declaration_path(@declaration) %> |
-    <% end %>
-    <%= link_to '打印', "#print_dialog", :rel => "facebox" %> |
-    <%= link_to @declaration_type == "export" ? "出口成品" : "进口料件", declaration_cargos_path(:declaration_id => @declaration.id) %>
-    |
-    <%= link_to "装箱明细", declaration_packings_path(:declaration_id => @declaration.id) %> |
-    <%= link_to "集装箱号", declaration_containers_path(:declaration_id => @declaration.id) %> |
-    <%= link_to '返回列表', declarations_path(:declaration_type => @declaration_type) %>
+    <div class="operations">
+      <%= link_to '复制', copy_declaration_path(@declaration) %> |
+      <% if can? :update, @declaration %><%= link_to '编辑', edit_declaration_path(@declaration) %> |
+      <% end %>
+      <%= link_to '打印', "#print_dialog", :rel => "facebox" %> |
+      <%= link_to @declaration_type == "export" ? "出口成品" : "进口料件", declaration_cargos_path(:declaration_id => @declaration.id) %>
+      |
+      <%= link_to "装箱明细", declaration_packings_path(:declaration_id => @declaration.id) %> |
+      <%= link_to "集装箱号", declaration_containers_path(:declaration_id => @declaration.id) %> |
+      <%= link_to '返回列表', declarations_path(:declaration_type => @declaration_type) %>
+    </div>
   </div>
-</div>
-<script>
+  <script>
    $(document).ready(function(){
     $("#declare_button_1").click(function () {
-        if (confirm('确定要申报1.2版本的报文吗?')) {
-            var url = this.getAttribute("href");
-            $.get(url, function (result) {
-                alert(result.content);
-                location.reload();
-            });
-        }
-        return false;
+      if (confirm('确定要申报1.2版本的报文吗?')) {
+        var url = this.getAttribute("href");
+        $.get(url, function (result) {
+          alert(result.content);
+          location.reload();
+        });
+      }
+      return false;
     });
-     $("#declare_button_2").click(function () {
-        if (confirm('确定要申报2.0版本的报文吗?')) {
-            var url = this.getAttribute("href");
-            $.get(url, function (result) {
-                alert(result.content);
-                location.reload();
-            });
-        }
-        return false;
+    $("#declare_button_2").click(function () {
+      if (confirm('确定要申报2.0版本的报文吗?')) {
+        var url = this.getAttribute("href");
+        $.get(url, function (result) {
+          alert(result.content);
+          location.reload();
+        });
+      }
+      return false;
     });
-   })
+  })
 </script>
 <div class="content-box-content">
   <div class="tab-content default-tab">
@@ -72,7 +72,7 @@
         <%= @declaration.entry_no %>
       </p>
 
-     
+
 
       <p>
         <b>外商公司:</b>
@@ -87,16 +87,16 @@
       <p>
         <b>备案号:</b>
         <% if @declaration.contract %>
-            <%= @declaration.contract.manual %>
+        <%= @declaration.contract.manual %>
         <% end %>
       </p>
 
 
       <% if @declaration_type == "import" %>
-          <p>
-            <b>进口日期</b>
-            <%= @declaration.import_export_date %>
-          </p>
+      <p>
+        <b>进口日期</b>
+        <%= @declaration.import_export_date %>
+      </p>
       <% end %>
       <p>
         <b>申报日期:</b>
@@ -163,237 +163,286 @@
             <b>批准文号:</b>
             <%= @declaration.certification %>
           </p>
-          -->
-      <% end %>
-      <p>
-        <b>成交方式:</b>
-        <span class="autoload" data-url=<%= dict_deal_modes_path %>><%= @declaration.deal_mode %></span>
-      </p>
+        -->
+        <% end %>
+        <p>
+          <b>成交方式:</b>
+          <span class="autoload" data-url=<%= dict_deal_modes_path %>><%= @declaration.deal_mode %></span>
+        </p>
 
-      <p>
-        <b>合同号:</b>
-        <%= @declaration.contract_no %>
-      </p>
+        <p>
+          <b>合同号:</b>
+          <%= @declaration.contract_no %>
+        </p>
 
-      <p>
-        <b>件数:</b>
-        <%= @declaration.package_amount %>
-      </p>
+        <p>
+          <b>件数:</b>
+          <%= @declaration.package_amount %>
+        </p>
 
-      <p>
-        <b>包装种类:</b>
-        <span class="autoload" data-url=<%= dict_wrap_types_path %>><%= @declaration.wrap_type %></span>
-      </p>
+        <p>
+          <b>包装种类:</b>
+          <span class="autoload" data-url=<%= dict_wrap_types_path %>><%= @declaration.wrap_type %></span>
+        </p>
 
-      <p>
-        <b>毛重:</b>
-        <%= @declaration.gross_weight %>
-      </p>
+        <p>
+          <b>毛重:</b>
+          <%= @declaration.gross_weight %>
+        </p>
 
-      <p>
-        <b>净重:</b>
-        <%= @declaration.net_weight %>
-      </p>
+        <p>
+          <b>净重:</b>
+          <%= @declaration.net_weight %>
+        </p>
 
-      <p>
-        <b>装卸口岸:</b>
-        <span class="autoload" data-url=<%= dict_load_ports_path %>><%= @declaration.load_port %></span>
-      </p>
+        <p>
+          <b>装卸口岸:</b>
+          <span class="autoload" data-url=<%= dict_load_ports_path %>><%= @declaration.load_port %></span>
+        </p>
 
-      <p>
-        <b>贸易国(地区):</b>
-        <span class="autoload" data-url=<%= dict_countries_path %> ><%= @declaration.trade_country %></span>
-      </p>
+        <p>
+          <b>贸易国(地区):</b>
+          <span class="autoload" data-url=<%= dict_countries_path %> ><%= @declaration.trade_country %></span>
+        </p>
 
-      <p>
-        <b>申报单位:</b>
-        <span class="autoload" data-url=<%= enterprises_path %> ><%= @declaration.declare_enterprise_code %></span>
-      </p>
+        <p>
+          <b>申报单位:</b>
+          <span class="autoload" data-url=<%= enterprises_path %> ><%= @declaration.declare_enterprise_code %></span>
+        </p>
 
-      <p>
-        <b>收发货人:</b>
-        <span class="autoload" data-url=<%= enterprises_path %>><%= @declaration.operate_enterprise_code %></span>
-     </p>
+        <p>
+          <b>收发货人:</b>
+          <span class="autoload" data-url=<%= enterprises_path %>><%= @declaration.operate_enterprise_code %></span>
+        </p>
 
-     <p>
-        <b>担保验放</b>
-        <span class="autoload" data-url=<%= dict_check_sureties_path %> ><%= @declaration.check_surety %></span>
-     </p>
-     <p>
-        <b>备案清单类型</b>
-        <span class="autoload" data-url=<%= dict_bill_types_path %> ><%= @declaration.bill_type %></span>
-     </p>
+        <p>
+          <b>担保验放</b>
+          <span class="autoload" data-url=<%= dict_check_sureties_path %> ><%= @declaration.check_surety %></span>
+        </p>
+        <p>
+          <b>备案清单类型</b>
+          <span class="autoload" data-url=<%= dict_bill_types_path %> ><%= @declaration.bill_type %></span>
+        </p>
 
 
-      <p>
-        <b>特殊关系确认</b>
-        <%= true == @declaration.is_special_relationship ? "是" : "否" %>
-      </p>
+        <p>
+          <b>特殊关系确认</b>
+          <%= true == @declaration.is_special_relationship ? "是" : "否" %>
+        </p>
 
-      <p>
-        <b>价格影响确认</b>
-        <%= true == @declaration.is_price_influence ? "是" : "否" %>
-      </p>
+        <p>
+          <b>价格影响确认</b>
+          <%= true == @declaration.is_price_influence ? "是" : "否" %>
+        </p>
 
-      <p>
-        <b>支付特许权使用费确认</b>
-        <%= true == @declaration.is_pay_privilege ? "是" : "否" %>
-      </p>
+        <p>
+          <b>支付特许权使用费确认</b>
+          <%= true == @declaration.is_pay_privilege ? "是" : "否" %>
+        </p>
 
-      <p>
-        <b>备注:</b>
-        <%= @declaration.memo %>
-      </p>
-      <% if @declaration_type == "import" %>
+        <p>
+          <b>备注:</b>
+          <%= @declaration.memo %>
+        </p>
+        <% if @declaration_type == "import" %>
           <!--
           <p>
             <b>用途:</b>
             <span class="autoload" data-url=<%= dict_usages_path %>><%= @declaration.usage %></span>
           </p>
-          -->
+        -->
+        <% end %>
+        <% @declaration.attachments.each do |key, value| %>
+        <p>
+          <b><span class="autoload" data-url=<%= dict_attachments_path %>><%= key %></span>:</b>
+          <%= value %>
+        </p>
+        <% end %>
+
+        <p>
+          <b>报关人员:</b>
+          <%= @declaration.declarant %>
+        </p>
+
+        <p>
+          <b>申报企业:</b>
+          <span class="autoload" data-url=<%= enterprises_path %>><%= @declaration.declare_enterprise_code %></span>
+        </p>
+
+      </fieldset>
+
+      <fieldset>
+        <legend>运、保、杂费</legend>
+          <p>
+          <b>运费:</b>
+          <%= @declaration.transport_price %>
+          </p>
+
+          <p>
+          <b>运费标志:</b>
+          <%= @declaration.transport_price_flag %>
+          </p>
+
+          <p>
+          <b>运费币制:</b>
+          <span class="autoload" data-url=<%= dict_currencies_path %> ><%= @declaration.transport_currency %></span>
+          </p>
+
+          <p>
+          <b>保费:</b>
+          <%= @declaration.protect_price %>
+          </p>
+
+          <p>
+          <b>保费标志:</b>
+          <%= @declaration.protect_price_flag %>
+          </p>
+
+          <p>
+          <b>保费币制:</b>
+          <span class="autoload" data-url=<%= dict_currencies_path %> ><%= @declaration.protect_currency %></span>
+          </p>
+
+          <p>
+          <b>杂费:</b>
+          <%= @declaration.trivial_price %>
+          </p>
+
+          <p>
+          <b>杂费标志:</b>
+          <%= @declaration.trivial_price_flag %>
+          </p>
+
+          <p>
+          <b>杂费币制:</b>
+          <span class="autoload" data-url=<%= dict_currencies_path %> ><%= @declaration.trivial_currency %></span>
+          </p>
+
+      </fieldset>
+
+      <% if @declaration.transit_type == "003" %>
+      <fieldset>
+        <legend>转关信息：</legend>
+        <p>
+          <b>转关申报类型：</b>
+          <span class="autoload" data-url=<%= dict_transit_declaration_types_path %>><%= @declaration.declaration_transit_information.transit_declaration_type %></span>
+        </p>
+
+        <p>
+          <b>转关申报单位统一代码：</b>
+          <span class="autoload" data-url=<%= enterprises_path %>><%= @declaration.declaration_transit_information.transit_declaration_enterprise %></span>
+        </p>
+
+        <p>
+          <b>境内运输方式:</b>
+          <span class="autoload" data-url=<%= dict_transport_modes_path %>><%= @declaration.declaration_transit_information.local_transport_mode rescue ''%></span>
+        </p>
+
+        <p>
+          <b>境内运输工具编号:</b>
+          <span class="autoload" data-url=<%= dict_trucks_path %>><%= @declaration.declaration_transit_information.local_transport_tool_code rescue ''%></span>
+        </p>
+
+        <p>
+          <b>境内运输工具名称:</b>
+          <%= @declaration.declaration_transit_information.local_transport_tool_name rescue '' %>
+        </p>
+
+        <p>
+          <b>境内运输工具航次:</b>
+          <%= @declaration.declaration_transit_information.local_transport_tool_voyage_no rescue '' %>
+        </p>
+
+        <p>
+          <b>进出境运输工具编号:</b>
+          <span class="autoload" data-url=<%= dict_trucks_path %>><%= @declaration.declaration_transit_information.transport_tool_code rescue '' %></span>
+        </p>
+
+        <p>
+          <b>进出境运输工具名称:</b>
+          <%= @declaration.declaration_transit_information.transport_tool_name rescue ''%>
+        </p>
+
+        <p>
+          <b>进出境运输工具航次:</b>
+          <%= @declaration.declaration_transit_information.transport_tool_voyage_no rescue ''%>
+        </p>
+
+        <p>
+          <b>进出境提运单号:</b>
+          <%= @declaration.declaration_transit_information.bill_no rescue ''%>
+        </p>
+
+        <p>
+          <b>承运单位组织机构代码:</b>
+          <%= @declaration.declaration_transit_information.corporation_code rescue ''%>
+        </p>
+
+        <p>
+          <b>承运单位名称:</b>
+          <%= @declaration.declaration_transit_information.corporation_name rescue ''%>
+        </p>
+
+      </fieldset>
       <% end %>
-      <% @declaration.attachments.each do |key, value| %>
-          <p>
-            <b><span class="autoload" data-url=<%= dict_attachments_path %>><%= key %></span>:</b>
-            <%= value %>
-          </p>
-      <% end %>
-
-      <p>
-        <b>报关人员:</b>
-        <%= @declaration.declarant %>
-      </p>
-
-      <p>
-        <b>申报企业:</b>
-        <span class="autoload" data-url=<%= enterprises_path %>><%= @declaration.declare_enterprise_code %></span>
-      </p>
-
-    </fieldset>
-
-    <% if @declaration.transit_type == "003" %>
-        <fieldset>
-          <legend>转关信息：</legend>
-          <p>
-            <b>转关申报类型：</b>
-            <span class="autoload" data-url=<%= dict_transit_declaration_types_path %>><%= @declaration.declaration_transit_information.transit_declaration_type %></span>
-          </p>
-
-          <p>
-            <b>转关申报单位统一代码：</b>
-            <span class="autoload" data-url=<%= enterprises_path %>><%= @declaration.declaration_transit_information.transit_declaration_enterprise %></span>
-          </p>
-
-          <p>
-            <b>境内运输方式:</b>
-            <span class="autoload" data-url=<%= dict_transport_modes_path %>><%= @declaration.declaration_transit_information.local_transport_mode rescue ''%></span>
-          </p>
-
-          <p>
-            <b>境内运输工具编号:</b>
-            <span class="autoload" data-url=<%= dict_trucks_path %>><%= @declaration.declaration_transit_information.local_transport_tool_code rescue ''%></span>
-          </p>
-
-          <p>
-            <b>境内运输工具名称:</b>
-            <%= @declaration.declaration_transit_information.local_transport_tool_name rescue '' %>
-          </p>
-
-          <p>
-            <b>境内运输工具航次:</b>
-            <%= @declaration.declaration_transit_information.local_transport_tool_voyage_no rescue '' %>
-          </p>
-
-          <p>
-            <b>进出境运输工具编号:</b>
-            <span class="autoload" data-url=<%= dict_trucks_path %>><%= @declaration.declaration_transit_information.transport_tool_code rescue '' %></span>
-          </p>
-
-          <p>
-            <b>进出境运输工具名称:</b>
-            <%= @declaration.declaration_transit_information.transport_tool_name rescue ''%>
-          </p>
-
-          <p>
-            <b>进出境运输工具航次:</b>
-            <%= @declaration.declaration_transit_information.transport_tool_voyage_no rescue ''%>
-          </p>
-
-          <p>
-            <b>进出境提运单号:</b>
-            <%= @declaration.declaration_transit_information.bill_no rescue ''%>
-          </p>
-
-          <p>
-            <b>承运单位组织机构代码:</b>
-            <%= @declaration.declaration_transit_information.corporation_code rescue ''%>
-          </p>
-
-          <p>
-            <b>承运单位名称:</b>
-            <%= @declaration.declaration_transit_information.corporation_name rescue ''%>
-          </p>
-
-        </fieldset>
-    <% end %>
+    </div>
   </div>
-</div>
 </div>
 
 
 <div id="print_dialog" style="display: none">
   <% if @declaration.declaration_cargos.size > 0 %>
-      <h3>请选择打印单据种类</h3>
+  <h3>请选择打印单据种类</h3>
 
-      <p>
-        <%= link_to '报关单', print_declaration_declaration_path(@declaration), :target => "_blank", :class => "print_button" %>
-      </p>
+  <p>
+    <%= link_to '报关单', print_declaration_declaration_path(@declaration), :target => "_blank", :class => "print_button" %>
+  </p>
 
-      <p>
-        <%= link_to '报关委托书', print_attorney_declaration_path(@declaration), :target => "_blank", :class => "print_button" %>
-      </p>
+  <p>
+    <%= link_to '报关委托书', print_attorney_declaration_path(@declaration), :target => "_blank", :class => "print_button" %>
+  </p>
 
-      <p>
-        <%= link_to '发票', print_invoice_declaration_path(@declaration), :target => "_blank", :class => "print_button" %>
-      </p>
+  <p>
+    <%= link_to '发票', print_invoice_declaration_path(@declaration), :target => "_blank", :class => "print_button" %>
+  </p>
 
-      <p>
-        <%= link_to '规范发票', print_normal_declaration_path(@declaration), :target => "_blank", :class => "print_button" %>
-      </p>
+  <p>
+    <%= link_to '规范发票', print_normal_declaration_path(@declaration), :target => "_blank", :class => "print_button" %>
+  </p>
 
-      <p>
-        <%= link_to '凤岗装箱单', print_packing3_declaration_path(@declaration), :target => "_blank", :class => "print_button" %>
-      </p>
+  <p>
+    <%= link_to '凤岗装箱单', print_packing3_declaration_path(@declaration), :target => "_blank", :class => "print_button" %>
+  </p>
 
-      <p>
-        <%= link_to '合同', print_contract_declaration_path(@declaration), :target => "_blank", :class => "print_button" %>
-      </p>
+  <p>
+    <%= link_to '合同', print_contract_declaration_path(@declaration), :target => "_blank", :class => "print_button" %>
+  </p>
 
-      <p class="nodisplay">
-        <%= link_to '合同2', print_contract2_declaration_path(@declaration), :target => "_blank", :class => "print_button" %>
-      </p>
+  <p class="nodisplay">
+    <%= link_to '合同2', print_contract2_declaration_path(@declaration), :target => "_blank", :class => "print_button" %>
+  </p>
 
-      <p>
-        <%= link_to '装箱单', print_packing1_declaration_path(@declaration), :target => "_blank", :class => "print_button" %>
-      </p>
+  <p>
+    <%= link_to '装箱单', print_packing1_declaration_path(@declaration), :target => "_blank", :class => "print_button" %>
+  </p>
 
-      <p>
-        <%= link_to '装箱明细单', print_packing2_declaration_path(@declaration), :target => "_blank", :class => "print_button" %>
-      </p>
+  <p>
+    <%= link_to '装箱明细单', print_packing2_declaration_path(@declaration), :target => "_blank", :class => "print_button" %>
+  </p>
 
-      <!--<p>-->
-        <!--<%= link_to '出入仓单', print_attorney_declaration_path(@declaration), :target => "_blank", :class => "print_button" %>-->
-      <!--</p>-->
+  <!--<p>-->
+  <!--<%= link_to '出入仓单', print_attorney_declaration_path(@declaration), :target => "_blank", :class => "print_button" %>-->
+  <!--</p>-->
 
-      <% if @declaration_type == "export" %>
-          <p>
-            <%= link_to '国税发票', print_tax_invoice_declaration_path(@declaration), :target => "_blank", :class => "print_button" %>
-          </p>
-      <% end %>
+  <% if @declaration_type == "export" %>
+  <p>
+    <%= link_to '国税发票', print_tax_invoice_declaration_path(@declaration), :target => "_blank", :class => "print_button" %>
+  </p>
+  <% end %>
   <% else %>
-      <h3>不能打印！</h3>
+  <h3>不能打印！</h3>
 
-      <p>请先去添加<%= @declaration_type == "export" ? "出口成品" : "进口料件" %></p>
+  <p>请先去添加<%= @declaration_type == "export" ? "出口成品" : "进口料件" %></p>
   <% end %>
 </div>
 <% if current_user.is?("admin") or current_user.is?("declarant")  %>
@@ -401,34 +450,34 @@
   <div class="content-box-header">
     <h3>申报记录</h3>
     <div class="operations">
-        <% if can? :declare, @declaration %><%= link_to '申报（2.0版本）', declare_declaration_path(@declaration, :format => :json, :version => "2.0"), :id => "declare_button_2" %>
-        <% end %>
+      <% if can? :declare, @declaration %><%= link_to '申报（2.0版本）', declare_declaration_path(@declaration, :format => :json, :version => "2.0"), :id => "declare_button_2" %>
+      <% end %>
     </div>
     <div class="operations">
-        <% if can? :declare, @declaration %><%= link_to '申报（1.2版本）', declare_declaration_path(@declaration, :format => :json, :version => "1.2"), :id => "declare_button_1" %>
-        <% end %>
+      <% if can? :declare, @declaration %><%= link_to '申报（1.2版本）', declare_declaration_path(@declaration, :format => :json, :version => "1.2"), :id => "declare_button_1" %>
+      <% end %>
     </div>
   </div>
   <div class="content-box-content">
     <div class="tab-content default-tab">
       <table>
         <thead>
-        <tr>
-          <th>时间</th>
-          <th>报文ID</th>
-          <th>状态</th>
-          <th>备注</th>
-        </tr>
+          <tr>
+            <th>时间</th>
+            <th>报文ID</th>
+            <th>状态</th>
+            <th>备注</th>
+          </tr>
         </thead>
         <tbody>
-        <% @declaration.dispatch_records.each do |record| %>
-            <tr>
-              <td><%= record.created_at.strftime('%Y-%m-%d %H:%M:%S') %></td>
-              <td><%= record.message_id %></td>
-              <td><%= record.channel %></td>
-              <td><%= record.note %></td>
-            </tr>
-        <% end %>
+          <% @declaration.dispatch_records.each do |record| %>
+          <tr>
+            <td><%= record.created_at.strftime('%Y-%m-%d %H:%M:%S') %></td>
+            <td><%= record.message_id %></td>
+            <td><%= record.channel %></td>
+            <td><%= record.note %></td>
+          </tr>
+          <% end %>
         </tbody>
       </table>
     </div>

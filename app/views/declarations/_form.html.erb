@@ -185,69 +185,13 @@
       <label>成交方式</label>
       <%= render "shared/autocomplete_field", :form => f, :attribute => :deal_mode, :url => dict_deal_modes_path, :min_length => 1, :klass => "text-input small-input" %>
     </div>
-
-    <div class="filed">
-      <label>运费</label>
-      <%= f.text_field :transport_price, :class => "text-input small-input" %>
-
-    </div>
-
-    <div class="filed">
-      <label>保费</label>
-      <%= f.text_field :protect_price, :class => "text-input small-input" %>
-
-    </div>
-
-    <div class="filed">
-      <label>杂费</label>
-      <%= f.text_field :trivial_price, :class => "text-input small-input" %>
-    </div>
-
-    <div class="filed">
-      <label>运费标志</label>
-      <%= f.text_field :transport_price_flag, :class => "text-input small-input" %>
-
-    </div>
-
-    <div class="filed">
-      <label>保费标志</label>
-      <%= f.text_field :protect_price_flag, :class => "text-input small-input" %>
-
-    </div>
-
-    <div class="filed">
-      <label>杂费标志</label>
-      <%= f.text_field :trivial_price_flag, :class => "text-input small-input" %>
-    </div>
-
-    <div class="filed">
-      <label>运费币制</label>
-      <%= render "shared/autocomplete_field", :form => f, :attribute => :transport_currency, :url => dict_currencies_path, :klass => "text-input small-input" %>
-    </div>
-
-    <div class="filed">
-      <label>保费币制</label>
-      <%= render "shared/autocomplete_field", :form => f, :attribute => :protect_currency, :url => dict_currencies_path, :klass => "text-input small-input" %>
-
-    </div>
-
-    <div class="filed">
-      <label>杂费币制</label>
-      <%= render "shared/autocomplete_field", :form => f, :attribute => :trivial_currency, :url => dict_currencies_path, :klass => "text-input small-input" %>
-
-    </div>
-
   
-
     <div class="filed">
       <label>许可证号</label>          
       <%= f.text_field :allow_no, :class => "text-input small-input" %>
 
     </div>
-
-   
-    
-    
+        
     <div class="filed">
       <label>保税/监管场所</label>
       <%= f.text_field :warehouse_no, :class => "text-input small-input" %>
@@ -379,9 +323,62 @@
         -->
     <% end %>
     
+    </fieldset>
+
+    <fieldset>
+    <legend>运、保、杂费</legend>
+      
+    <div class="filed">
+      <label>运费</label>
+      <%= f.text_field :transport_price, :class => "text-input small-input" %>
+
+    </div>
+
+    <div class="filed">
+      <label>运费标志</label>
+      <%= f.text_field :transport_price_flag, :class => "text-input small-input" %>
+
+    </div>
+
+    <div class="filed">
+      <label>运费币制</label>
+      <%= render "shared/autocomplete_field", :form => f, :attribute => :transport_currency, :url => dict_currencies_path, :klass => "text-input small-input" %>
+    </div>
 
 
+    <div class="filed">
+      <label>保费</label>
+      <%= f.text_field :protect_price, :class => "text-input small-input" %>
 
+    </div>
+
+    <div class="filed">
+      <label>保费标志</label>
+      <%= f.text_field :protect_price_flag, :class => "text-input small-input" %>
+
+    </div>
+
+    <div class="filed">
+      <label>保费币制</label>
+      <%= render "shared/autocomplete_field", :form => f, :attribute => :protect_currency, :url => dict_currencies_path, :klass => "text-input small-input" %>
+
+    </div>
+
+    <div class="filed">
+      <label>杂费</label>
+      <%= f.text_field :trivial_price, :class => "text-input small-input" %>
+    </div>
+
+    <div class="filed">
+      <label>杂费标志</label>
+      <%= f.text_field :trivial_price_flag, :class => "text-input small-input" %>
+    </div>
+
+    <div class="filed">
+      <label>杂费币制</label>
+      <%= render "shared/autocomplete_field", :form => f, :attribute => :trivial_currency, :url => dict_currencies_path, :klass => "text-input small-input" %>
+
+    </div>
 
     </fieldset>
 
