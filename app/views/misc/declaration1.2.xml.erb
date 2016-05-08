@@ -63,9 +63,9 @@
             <%= raw tcs("CustomMaster", (enterprise.enterprise_custom_option.custom_code rescue '')); %>
             <%= raw tcs("IEPort", (@declaration.custom rescue '')); %>
             <% if @declaration.transit_type == "001"%>
-                <DeclTrnRel>0</DeclTrnRel>
+            <DeclTrnRel>0</DeclTrnRel>
             <% else %>
-                <DeclTrnRel>1</DeclTrnRel>
+            <DeclTrnRel>1</DeclTrnRel>
             <% end %>
             <%= raw tcs("DistinatePort", (@declaration.port rescue '')) %>
             <EdiId>5</EdiId>
@@ -74,7 +74,6 @@
             <%= raw tcs("TradeCountry", (@declaration.trade_country rescue '')) %>
             <TaxCorporationType>2</TaxCorporationType>
             <%= raw tcs("DestinationCode", (@declaration.destination rescue '')) %>
-            <%= raw tcs("CYNo", (@declaration.load_port rescue '')) %>
             <%= raw tcs("ContractNo", (@declaration.contract_no rescue '')) %>
             <% if @declaration.trade_mode == '0110' %>
             <EnrolNo xsi:nil="true" />
@@ -98,15 +97,19 @@
             <%= raw tcs("Packages", (@declaration.package_amount rescue '')) %>
             <%= raw tcs("NetWeight", (@declaration.net_weight rescue '')) %>
             <%= raw tcs("GrossWeight", (@declaration.gross_weight rescue '')) %>
-            <FreightMark xsi:nil="true" />
-            <FreightRate xsi:nil="true" />
-            <FreightCurrency xsi:nil="true" />
-            <InsuranceMark xsi:nil="true" />
-            <InsuranceRate xsi:nil="true" />
-            <InsuranceCurrency xsi:nil="true" />
-            <ExtrasMark xsi:nil="true" />
-            <ExtrasRate xsi:nil="true" />
-            <ExtrasCurrency xsi:nil="true" />
+            
+            <%= raw tcs("FreightMark", (@declaration.transport_price rescue '')) %>
+            <%= raw tcs("FreightRate", (@declaration.transport_price_flag rescue '')) %>
+            <%= raw tcs("FreightCurrency", (@declaration.transport_currency rescue '')) %>
+
+            <%= raw tcs("InsuranceMark", (@declaration.protect_price rescue '')) %>
+            <%= raw tcs("InsuranceRate", (@declaration.protect_price_flag rescue '')) %>
+            <%= raw tcs("InsuranceCurrency", (@declaration.protect_currency rescue '')) %>
+              
+            <%= raw tcs("ExtrasMark", (@declaration.trivial_price rescue '')) %>
+            <%= raw tcs("ExtrasRate", (@declaration.trivial_price_flag rescue '')) %>
+            <%= raw tcs("ExtrasCurrency", (@declaration.trivial_currency rescue '')) %>
+
             <%= raw tcs("PayMode", (@declaration.pay_way rescue '')) %>
             <SaleDomesticRatio xsi:nil="true" />
             <% if @declaration.declaration_type == 'export' %>
@@ -184,6 +187,16 @@
             <% end %>
           </DecAttachedList>
           <% end %>
+
+          <DecFreeTxt>
+              <WarehouseNo xsi:nil="true" />
+              <%= raw tcs("CYNo", (@declaration.load_port rescue '')) %>
+              <DeclarantTelephone xsi:nil="true" />
+              <EntryDeclarantNo xsi:nil="true" />
+              <RelativeEntryNo xsi:nil="true" />
+              <RelativeEnrolNo xsi:nil="true" />
+              <MeansOfTransportId xsi:nil="true" />
+          </DecFreeTxt>
 
           <% if @declaration.transit_type == '003' %>
           <% transit_information = @declaration.declaration_transit_information %>
