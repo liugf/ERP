@@ -277,7 +277,7 @@
     </div>
 
    <div class="filed">
-      <label>转关类型</label>
+      <label>报关/转关类型</label>
       <%= render "shared/combobox_field", :form => f, :attribute => :transit_type, :model => Dict::TransitType, :width=>"170px", :klass => "text-input" %>
     </div>
     <script>
@@ -296,8 +296,8 @@
     </script>
 
     <div class="filed">
-      <label>报关型式</label>
-      <%= render "shared/combobox_field", :form => f, :attribute => :declaration_mode, :model => Dict::DeclareMode, :width=>"170px" ,:klass => "text-input " %>
+      <label>报关形式</label>
+      <%= render "shared/combobox_field", :form => f, :attribute => :declare_mode, :model => Dict::DeclareMode, :width=>"170px" ,:klass => "text-input " %>
     </div>
 
     

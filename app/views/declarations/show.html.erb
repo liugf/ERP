@@ -42,9 +42,13 @@
   <div class="tab-content default-tab">
     <fieldset>
       <legend>基本信息：</legend>
+      <p>
+        <b>报关形式:</b>
+        <span class="autoload" data-url=<%= dict_declare_modes_path %>><%= @declaration.declare_mode %></span>
+      </p>
 
       <p>
-        <b>报关类型:</b>
+        <b>报关/转关类型:</b>
         <span class="autoload" data-url=<%= dict_transit_types_path %>><%= @declaration.transit_type %></span>
       </p>
 
