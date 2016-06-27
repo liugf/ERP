@@ -68,7 +68,13 @@
             <DeclTrnRel>1</DeclTrnRel>
             <% end %>
             <%= raw tcs("DistinatePort", (@declaration.port rescue '')) %>
+            <% if @declaration.transit_type == "001"%>
+            <EdiId>1</EdiId>
+            <% elsif ( @declaration.transit_type == "002" or  @declaration.transit_type == "004"  or  @declaration.transit_type == "006" )%>
+            <EdiId>3</EdiId>
+            <% else %>
             <EdiId>5</EdiId>
+            <% end %>
             <EntryType>W</EntryType>
             <Type xsi:nil="true" />
             <%= raw tcs("TradeCountry", (@declaration.trade_country rescue '')) %>
