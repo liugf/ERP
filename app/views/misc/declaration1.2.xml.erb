@@ -1,6 +1,8 @@
 <% enterprise = @declaration.enterprise %>
 <% custom_option = enterprise.enterprise_custom_option %>
 <% now = Time.now %>
+<% trade_mode_white_list = ["0139", "1200", "1233", "1234", "1300", "2700", "4500", "4561", "5010", "5034", "6033", "9700", "9739", "9900"]
+%>
 <?xml version="1.0" encoding="UTF-8"?>
 <TCS101Message>
   <MessageHead>
@@ -80,8 +82,12 @@
             <%= raw tcs("TradeCountry", (@declaration.trade_country rescue '')) %>
             <TaxCorporationType>2</TaxCorporationType>
             <%= raw tcs("DestinationCode", (@declaration.destination rescue '')) %>
-            <%= raw tcs("ContractNo", (@declaration.contract_no rescue '')) %>
-            <% if @declaration.trade_mode == '0110' %>
+            <% if trade_mode_white_list.include? @declaration.trade_mode  %>
+            <ContractNo xsi:nil="true" />
+            <% else  %>
+            <%= raw tcs('ContractNo', (@declaration.contract_no rescue '')) %>
+            <% end %>
+            <% if @declaration.trade_mode == '0110' or ( trade_mode_white_list.include? @declaration.trade_mode )  %>
             <EnrolNo xsi:nil="true" />
             <% else %>
             <%= raw tcs("EnrolNo", (@declaration.contract.manual rescue '')) %>
@@ -94,7 +100,11 @@
             <%= raw tcs("MeansOfTransportMode", (@declaration.transport_mode rescue '')) %>
             <%= raw tcs("TransactionMode", (@declaration.deal_mode rescue '')) %>
             <%= raw tcs("TradeMode", (@declaration.trade_mode rescue '')) %>
-            <%= raw tcs("CutMode", (@declaration.tax_kind rescue '')) %>
+            <% if trade_mode_white_list.include? @declaration.trade_mode  %>
+            <CutMode xsi:nil="true" />
+            <% else  %>
+            <%= raw tcs('CutMode', (@declaration.tax_kind rescue '')) %>
+            <% end %>
             <% if @declaration.declaration_type == 'export' %>
             <ImportExportFlag>E</ImportExportFlag>
             <% else %>
@@ -137,7 +147,7 @@
               <MaterialNo xsi:nil="true" />
               <%= raw tcs('GoodsName', (cargo.name rescue '')) %>
               <%= raw tcs('Model', (cargo.specification rescue '')) %>
-              <% if @declaration.trade_mode == '0110' %>
+              <% if @declaration.trade_mode == '0110' or ( trade_mode_white_list.include? @declaration.trade_mode ) %>
               <EnrolNo xsi:nil="true" />
               <% else  %>
               <%= raw tcs('EnrolNo', (cargo.no_in_contract rescue '')) %>
