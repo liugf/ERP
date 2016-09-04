@@ -12,7 +12,7 @@ namespace :receipt do
     dir_path = Settings['dispatch_paths']['download_temp']
     Dir.new(dir_path).each do |file_name|
       if file_name != '.' and file_name != '..'
-        puts file_nmae
+        puts file_name
         file = File.new(dir_path + '/' + file_name)
         doc = REXML::Document.new(file)
         message_type = REXML::XPath.first(doc, "//MessageType" ).text  rescue ''
@@ -38,7 +38,7 @@ namespace :receipt do
           channel = REXML::XPath.first(doc, '//Channel | //CHANNEL' ).text     rescue ''
           note = REXML::XPath.first(doc, "//Note | //NOTE" ).text.to_s rescue ''
           note += (REXML::XPath.first(doc, "//ResultInformation" ).text.to_s rescue '')
-          note = note || (REXML::XPath.first(doc, "//ResponseInfo").text.to_s rescue '')
+          note += (REXML::XPath.first(doc, "//ResponseInfo").text.to_s rescue '')
 
           dispatch_record_generate = DispatchRecord.where("task_id = ? AND channel = ?", task_id, '000').last
           if dispatch_record_generate
