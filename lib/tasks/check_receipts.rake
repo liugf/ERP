@@ -12,6 +12,7 @@ namespace :receipt do
     dir_path = Settings['dispatch_paths']['download_temp']
     Dir.new(dir_path).each do |file_name|
       if file_name != '.' and file_name != '..'
+        puts file_nmae
         file = File.new(dir_path + '/' + file_name)
         doc = REXML::Document.new(file)
         message_type = REXML::XPath.first(doc, "//MessageType" ).text  rescue ''
@@ -20,9 +21,7 @@ namespace :receipt do
           request_message_id = REXML::XPath.first(doc, "//RequestMessageId" ).text   rescue ''
           task_id = REXML::XPath.first(doc, "//TaskId" ).text    rescue ''
           note = REXML::XPath.first(doc, "//ResponseList//ResultValue" ).text rescue nil
-          note = note || (REXML::XPath.first(doc, "//TcsFlow201Response//ResultValue" ).text rescue nil)
-          note = note || (REXML::XPath.first(doc, "//ResponseInfo").text rescue '')
-          puts note
+          note = note || (REXML::XPath.first(doc, "//TcsFlow201Response//ResultValue" ).text rescue '')
           dispatch_record_generate = DispatchRecord.where("message_id = ? AND channel = ?", request_message_id, '000').last
           if dispatch_record_generate
             dispatch_record_generate.task_id = task_id
@@ -39,6 +38,8 @@ namespace :receipt do
           channel = REXML::XPath.first(doc, '//Channel | //CHANNEL' ).text     rescue ''
           note = REXML::XPath.first(doc, "//Note | //NOTE" ).text.to_s rescue ''
           note += (REXML::XPath.first(doc, "//ResultInformation" ).text.to_s rescue '')
+          note = note || (REXML::XPath.first(doc, "//ResponseInfo").text.to_s rescue '')
+
           dispatch_record_generate = DispatchRecord.where("task_id = ? AND channel = ?", task_id, '000').last
           if dispatch_record_generate
             dispatch_record_new = DispatchRecord.new({:declaration_id => dispatch_record_generate.declaration_id,
