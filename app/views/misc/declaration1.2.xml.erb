@@ -85,12 +85,12 @@
             <% if trade_mode_white_list.include? @declaration.trade_mode  %>
             <ContractNo xsi:nil="true" />
             <% else  %>
-            <%= raw tcs('ContractNo', (@declaration.contract_no rescue '')) %>
+            <%= raw tcs('ContractNo', (@declaration.contract_no rescue '')) %>  <!-- 合同协议号 -->
             <% end %>
             <% if @declaration.trade_mode == '0110' or ( trade_mode_white_list.include? @declaration.trade_mode )  %>
             <EnrolNo xsi:nil="true" />
             <% else %>
-            <%= raw tcs("EnrolNo", (@declaration.contract.manual rescue '')) %>
+            <%= raw tcs("EnrolNo", (@declaration.contract.manual rescue '')) %> <!-- 手册编号 -->
             <% end %>
             <%= raw tcs("ApprovalNo", (@declaration.certification rescue '')) %>
             <LicenseNo xsi:nil="true" />
@@ -103,7 +103,7 @@
             <% if trade_mode_white_list.include? @declaration.trade_mode  %>
             <CutMode xsi:nil="true" />
             <% else  %>
-            <%= raw tcs('CutMode', (@declaration.tax_kind rescue '')) %>
+            <%= raw tcs('CutMode', (@declaration.tax_kind rescue '')) %> <!-- 征免性质-->
             <% end %>
             <% if @declaration.declaration_type == 'export' %>
             <ImportExportFlag>E</ImportExportFlag>
@@ -150,11 +150,11 @@
               <% if @declaration.trade_mode == '0110' or ( trade_mode_white_list.include? @declaration.trade_mode ) %>
               <EnrolNo xsi:nil="true" />
               <% else  %>
-              <%= raw tcs('EnrolNo', (cargo.no_in_contract rescue '')) %>
+              <%= raw tcs('EnrolNo', (cargo.no_in_contract rescue '')) %> <!-- 合同序号 -->
               <% end %>
               <%= raw tcs('Quantity', (cargo.quantity rescue '')) %>
               <%= raw tcs('QuantityUnit', (cargo.unit rescue '')) %>
-              <%= raw tcs('UnitPrice', (sprintf("%0.2f", cargo.unit_price) rescue '')) %>
+              <%= raw tcs('UnitPrice', (sprintf("%0.4f", cargo.unit_price) rescue '')) %>
               <%= raw tcs('TotalPrice', (sprintf("%0.2f", cargo.total_price) rescue '')) %>
               <%= raw tcs('Currency', (cargo.currency rescue '')) %>
               <%= raw tcs('FirstQuantity', (cargo.quantity1 rescue '')) %>

@@ -43,12 +43,12 @@
     <fieldset>
       <legend>基本信息：</legend>
       <p>
-        <b>报关形式:</b>
+        <b>报关单类型:</b>
         <span class="autoload" data-url=<%= dict_declare_modes_path %>><%= @declaration.declare_mode %></span>
       </p>
 
       <p>
-        <b>报关/转关类型:</b>
+        <b>报关标志:</b>
         <span class="autoload" data-url=<%= dict_transit_types_path %>><%= @declaration.transit_type %></span>
       </p>
 
@@ -324,7 +324,7 @@
       <fieldset>
         <legend>转关信息：</legend>
         <p>
-          <b>转关申报类型：</b>
+          <b>报关/转关关系标志：</b>
           <span class="autoload" data-url=<%= dict_transit_declaration_types_path %>><%= @declaration.declaration_transit_information.transit_declaration_type %></span>
         </p>
 

@@ -221,7 +221,7 @@
     </div>
 
    <div class="filed">
-      <label>报关/转关类型</label>
+      <label>报关标志</label>
       <%= render "shared/combobox_field", :form => f, :attribute => :transit_type, :model => Dict::TransitType, :width=>"170px", :klass => "text-input" %>
     </div>
     <script>
@@ -240,7 +240,7 @@
     </script>
 
     <div class="filed">
-      <label>报关形式</label>
+      <label>报关单类型</label>
       <%= render "shared/combobox_field", :form => f, :attribute => :declare_mode, :model => Dict::DeclareMode, :width=>"170px" ,:klass => "text-input " %>
     </div>
 
@@ -325,7 +325,7 @@
     
     </fieldset>
 
-    <fieldset>
+    <fieldset style="display:none">
     <legend>运、保、杂费</legend>
       
     <div class="filed">
@@ -404,7 +404,7 @@
       <legend>转关信息：</legend>
       <%= f.fields_for :declaration_transit_information do |f| %>
           <div class="filed">
-            <label>转关单类型</label>
+            <label>报关/转关关系标志</label>
             <%= render "shared/combobox_field", :form => f, :attribute => :transit_declaration_type, :model => Dict::TransitDeclarationType, :width=>"170px", :klass => "text-input" %>
           </div>
           <div class="filed">

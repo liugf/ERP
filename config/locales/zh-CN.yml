@@ -30,7 +30,7 @@ zh-CN:
       dict/currency: 币制
       dict/custom: 海关
       dict/deal_mode: 成交方式
-      dict/declare_mode: 报关形式
+      dict/declare_mode: 报关单类型
       dict/district: 国内地区
       dict/good: 商品分类
       dict/investment_mode: 投资方式
@@ -48,8 +48,8 @@ zh-CN:
       dict/unit: 单位
       dict/usage: 用途
       dict/wrap_type: 包装种类
-      dict/transit_type: 报关/转关类型
-      dict/transit_declaration_type: 转关申报类型
+      dict/transit_type: 报关标志
+      dict/transit_declaration_type: 报关/转关关系标志
       dict/bill_type: 备案清单类型
       dict/check_surety: 担保验放
       dict/fee: 费用种类

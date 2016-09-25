@@ -129,7 +129,8 @@
     }
 
 </style>
-
+<% trade_mode_white_list = ["0139", "1200", "1233", "1234", "1300", "2700", "4500", "4561", "5010", "5034", "6033", "9700", "9739", "9900"]
+%>
 <% @groups.each_with_index do |group, group_index| %>
     <div class="frame">
     <div style="width:100%;height:112px;">
@@ -185,7 +186,7 @@
         <div class="td" style="width:295px;"><div class="bg-text not_print">申报单位</div> <span class="content"><%= enterprise_name_and_code @declaration.declare_enterprise.code %></span></div>
         <div class="td" style="width:157px;"><div class="bg-text not_print">监管方式</div> <span class="content"><%= dict_name_and_code Dict::TradeMode, @declaration.trade_mode %></span></div>
         <div class="td" style="width:152px;"><div class="bg-text not_print">征免性质</div> <span class="content"><%= dict_name_and_code Dict::TaxKind, @declaration.tax_kind %></span></div>
-        <div class="td last-td" style="width:131px;"><div class="bg-text not_print">备案号</div> <span class="content"><%=  @declaration.contract.manual if (@declaration.contract && @declaration.trade_mode != '0110') %></span></div>
+        <div class="td last-td" style="width:131px;"><div class="bg-text not_print">备案号</div> <span class="content"><%=  @declaration.contract.manual if ( @declaration.contract && @declaration.trade_mode != '0110' and not(trade_mode_white_list.include? @declaration.trade_mode) ) %></span></div>
       </div>
       <div class="tr">
         <div class="td" style="width:210px;"><div class="bg-text not_print">贸易国（地区）</div> <span class="content"><%= dict_name_and_code Dict::Country, @declaration.trade_area %></span></div>
@@ -253,7 +254,7 @@
       <div id="goodlist-items">
         <% group.each_with_index do |cargo, cargo_index| %>
             <div class="tr<% if cargo_index == 4 %> goodlist-last<% end %>">
-              <div class="td goodlist-items-first" style="width:46px;"><span class="content"><%= cargo.no %></span><br/><span class="content"><%= "(" +  cargo.no_in_contract.to_s  + ")" if @declaration.trade_mode != '0110'  rescue '' %></span></div>
+              <div class="td goodlist-items-first" style="width:46px;"><span class="content"><%= cargo.no %></span><br/><span class="content"><%= "(" +  cargo.no_in_contract.to_s  + ")" if ( @declaration.trade_mode != '0110' and not(trade_mode_white_list.include? @declaration.trade_mode) ) rescue '' %></span></div>
               <div class="td" style="width:86px; margin-left: -20px;"><span class="content"><%= cargo.code rescue ''%></span></div>
               <div class="td" style="width:206px;"><span class="content"><%= cargo.name rescue ''%><%= "/" + cargo.specification if !cargo.specification.blank? rescue ''%></span></div>
               <div class="td" style="width:85px; text-align: left;"><span class="content"><%= "%g" % cargo.quantity + dict_name(Dict::Unit, cargo.unit) rescue ''%></span><br/><span class="content"><%= "%g" % cargo.quantity1 + dict_name(Dict::Unit, cargo.unit1) if cargo.quantity1 != 0 rescue ''%></span><br/><span class="content"><%= "%g" % cargo.quantity2 + dict_name(Dict::Unit, cargo.unit2) if cargo.quantity2 != 0 rescue ''%></span></div>
